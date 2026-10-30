@@ -75,43 +75,15 @@ export function RoomsPageListing({
 
   return (
     <div>
-      {/* Block Overview Cards */}
-      <div className="mb-12 grid gap-4 sm:grid-cols-3">
-        {blockOptions.map((b) => {
-          const isSelected = selectedBlock === b.name;
-          return (
-            <button
-              key={b.id}
-              type="button"
-              onClick={() => {
-                setSelectedBlock(isSelected ? "all" : b.name);
-                setSelectedFloor("all");
-              }}
-              className={`text-left rounded-2xl border p-5 transition-all duration-300 ${
-                isSelected
-                  ? "border-brand bg-brand/5 shadow-md ring-2 ring-brand/30"
-                  : "border-line bg-sand/30 hover:border-brand/40 hover:bg-sand/60"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 font-bold text-ink">
-                  <span className="grid size-7 place-items-center rounded-lg bg-brand text-white font-extrabold text-xs">
-                    {b.name.replace("Block ", "")}
-                  </span>
-                  <span className="oswald text-base tracking-wider">{b.name}</span>
-                </span>
-                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
-                  {b.free} free beds
-                </span>
-              </div>
-              {b.desc && <p className="mt-2 text-xs text-muted line-clamp-2">{b.desc}</p>}
-              <div className="mt-3 flex items-center justify-between text-[11px] text-muted border-t border-line/50 pt-2 font-semibold">
-                <span>Total capacity</span>
-                <span>{b.total} beds</span>
-              </div>
-            </button>
-          );
-        })}
+      {/* 3 Blocks Campus Summary */}
+      <div className="mb-8 rounded-2xl border border-line bg-sand/30 p-5 sm:p-6 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand mb-2">
+          <Building2 className="size-3.5" />
+          <span>3 Dedicated Blocks (Block A, Block B & Block C)</span>
+        </div>
+        <p className="mx-auto max-w-2xl text-xs sm:text-sm text-muted leading-relaxed">
+          Rooms are organized across our 3 residential blocks at Sinpa Marg, Gwarko, Lalitpur, all sharing the same safe, high-standard student living environment and full amenities.
+        </p>
       </div>
 
       {/* Filter Bar */}

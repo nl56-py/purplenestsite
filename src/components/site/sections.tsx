@@ -157,43 +157,12 @@ export function Rooms({ rooms, blocks, settings }: { rooms: Room[]; blocks?: Blo
   return (
     <section id="rooms" className="py-24 md:py-28">
       <div className={WRAP}>
-        <SectionHeading title="Hostel Blocks & Rooms" label="3 residential blocks in gwarko, lalitpur" />
-        
-        {/* 3 Block Highlights Strip */}
-        <div className="mt-10 mb-12 grid gap-5 sm:grid-cols-3">
-          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
-            <div className="flex items-center justify-between">
-              <span className="oswald rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase text-white">Block A</span>
-              <span className="text-xs font-semibold text-muted">Main Residential</span>
-            </div>
-            <h4 className="oswald mt-3 text-lg font-bold text-ink">Private & Attached Rooms</h4>
-            <p className="mt-1.5 text-xs text-muted leading-relaxed">
-              Single and double seater rooms with attached bathrooms, study desks, and quiet academic environment.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
-            <div className="flex items-center justify-between">
-              <span className="oswald rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase text-ink">Block B</span>
-              <span className="text-xs font-semibold text-muted">Study Focus</span>
-            </div>
-            <h4 className="oswald mt-3 text-lg font-bold text-ink">Sunny Balcony Rooms</h4>
-            <p className="mt-1.5 text-xs text-muted leading-relaxed">
-              Spacious triple seater rooms with sunny balconies, personal wardrobes, and direct study hall access.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
-            <div className="flex items-center justify-between">
-              <span className="oswald rounded-full bg-leaf px-3 py-1 text-xs font-bold uppercase text-white">Block C</span>
-              <span className="text-xs font-semibold text-muted">Value & Community</span>
-            </div>
-            <h4 className="oswald mt-3 text-lg font-bold text-ink">Group 4-Seater Rooms</h4>
-            <p className="mt-1.5 text-xs text-muted leading-relaxed">
-              Bright, well-ventilated 4-bed rooms with personal lockable wardrobes, study tables, and affordable fees.
-            </p>
-          </div>
-        </div>
+        <SectionHeading title="Hostel Rooms & Accommodation" label="3 residential blocks in gwarko, lalitpur" />
+        <p className="mx-auto mt-4 max-w-2xl text-center text-sm sm:text-base text-muted leading-relaxed">
+          The Purple Nest features 3 dedicated residential blocks (Block A, Block B & Block C) at Sinpa Marg, Gwarko, Lalitpur — all offering the same safe, clean, and homely living environment with transparent all-inclusive fees.
+        </p>
 
-        {settings.price_note && <p className="mx-auto max-w-xl text-center text-sm text-muted">{settings.price_note}</p>}
+        {settings.price_note && <p className="mx-auto mt-3 max-w-xl text-center text-sm text-muted">{settings.price_note}</p>}
         <RoomsCarouselBlockView rooms={rooms} blocks={blocks} settings={settings} />
       </div>
     </section>
