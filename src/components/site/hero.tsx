@@ -74,24 +74,28 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                     </span>
                   </div>
 
-                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] text-brand [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_0_15px_rgba(255,255,255,0.7)]">
+                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] text-brand drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)] [text-shadow:0_2px_4px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.9)]">
                     {s.title}
                   </h1>
 
                   {cheapest > 0 && (
-                    <p className="label-caps mt-4 flex flex-wrap items-baseline gap-x-3 text-[13px] !tracking-[0.32em] text-brand/85 [text-shadow:0_1px_2px_rgba(255,255,255,0.9)]">
-                      from{" "}
-                      <span className="oswald text-[2.6rem] sm:text-[3.2rem] font-bold normal-case leading-none !tracking-normal text-brand drop-shadow-[0_2px_10px_rgba(255,255,255,0.85)]">
-                        {formatRs(cheapest)}
-                      </span>{" "}
-                      a month
-                    </p>
+                    <div className="mt-4">
+                      <div className="inline-flex items-baseline gap-x-2.5 rounded-full border border-brand/25 bg-white/95 px-4 py-1.5 shadow-sm backdrop-blur-xs">
+                        <span className="label-caps text-[12px] !tracking-[0.22em] text-brand/80 font-bold">from</span>
+                        <span className="oswald text-[2.2rem] sm:text-[2.6rem] font-bold normal-case leading-none !tracking-normal text-brand">
+                          {formatRs(cheapest)}
+                        </span>
+                        <span className="label-caps text-[12px] !tracking-[0.22em] text-brand/80 font-bold">a month</span>
+                      </div>
+                    </div>
                   )}
 
                   {s.subtitle && (
-                    <p className="mt-3.5 text-[15.5px] sm:text-[17px] font-medium leading-relaxed text-ink [text-shadow:0_1px_2px_rgba(255,255,255,0.95)]">
-                      {s.subtitle}
-                    </p>
+                    <div className="mt-4 max-w-xl rounded-2xl border border-brand/20 bg-white/95 p-4 shadow-md backdrop-blur-xs">
+                      <p className="text-[15px] sm:text-[16.5px] font-semibold leading-relaxed text-brand">
+                        {s.subtitle}
+                      </p>
+                    </div>
                   )}
 
                   {/* Quick highlights pill strip */}
