@@ -5,16 +5,46 @@ import { ArrowLeft, ArrowRight, Check, MessageCircle, Phone, ShieldCheck, Sparkl
 import { getFacility, getFacilities, getSiteData } from "@/lib/data";
 import { FacilityIcon } from "@/lib/icons";
 import { telHref } from "@/lib/format";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema, generateFacilityDetailSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const facility = await getFacility(slug);
+  const [facility, siteData] = await Promise.all([getFacility(slug), getSiteData()]);
   if (!facility) return { title: "Facility Not Found" };
+
+  const url = `${SITE_URL}/facilities/${facility.slug || facility.id}`;
+  const title = `${facility.title} | ${siteData.settings.hostel_name} Facilities`;
+  const description = facility.description || `Learn about ${facility.title} at ${siteData.settings.hostel_name} in Gwarko, Lalitpur (Kathmandu Valley).`;
+  const image = facility.image_url || "/images/hero-exterior.jpg";
+
   return {
-    title: `${facility.title} | Hostel Facilities & Amenities`,
-    description: facility.description || `Learn about ${facility.title} at our student hostel in Kathmandu.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: `${facility.title} - ${siteData.settings.hostel_name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
   };
 }
 
@@ -31,8 +61,19 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
   const others = allFacilities.filter((f) => f.id !== facility.id && f.is_published);
   const paragraphs = (facility.content || facility.description || "").split(/\n{2,}/).filter(Boolean);
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Facilities", path: "/facilities" },
+    { name: facility.title, path: `/facilities/${facility.slug || facility.id}` },
+  ]);
+
+  const facilitySchema = generateFacilityDetailSchema(facility);
+
   return (
     <div className="bg-sand/30 py-12 md:py-20">
+      <JsonLd id="facility-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="facility-detail-schema" data={facilitySchema} />
+
       <div className="mx-auto max-w-[1200px] px-5">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-xs">
@@ -45,7 +86,7 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
 
         {/* Back Link */}
         <div className="mb-6">
-          <Link href="/#facilities" className="oswald inline-flex items-center gap-2 text-[12px] !tracking-[0.2em] text-brand transition hover:text-ink">
+          <Link href="/facilities" className="oswald inline-flex items-center gap-2 text-[12px] !tracking-[0.2em] text-brand transition hover:text-ink">
             <ArrowLeft className="size-4" /> Back to all facilities
           </Link>
         </div>
@@ -61,9 +102,9 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
               <h1 className="display mt-1 text-[clamp(2.4rem,5vw,3.8rem)] text-brand">{facility.title}</h1>
             </div>
           </div>
-          <a href="/#enquiry" className="tbtn tbtn-brand py-3.5 px-8 text-[12px]">
+          <Link href="/rooms#book" className="tbtn tbtn-brand py-3.5 px-8 text-[12px]">
             Book a bed now
-          </a>
+          </Link>
         </div>
 
         {/* Main Content Layout */}
@@ -192,7 +233,7 @@ export default async function FacilityDetailPage({ params }: { params: Promise<{
                     </a>
                   )}
                   <Link
-                    href="/#enquiry"
+                    href="/rooms#book"
                     className="tbtn tbtn-sun w-full py-3.5 text-[11px] flex items-center justify-center gap-2"
                   >
                     Online booking form <ArrowRight className="size-4" />

@@ -1,24 +1,76 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Utensils, Coffee, Sun, Moon, Sparkles, Check, Heart, ShieldCheck } from "lucide-react";
+import { Coffee, Sun, Moon, Sparkles, Check } from "lucide-react";
 import { getSiteData } from "@/lib/data";
 import { PageBanner } from "@/components/site/page-banner";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
+  const url = `${SITE_URL}/menu`;
+  const title = `Food Menu & Dining | ${settings.hostel_name}`;
+  const description = `Explore the 7-day healthy weekly meal menu at ${settings.hostel_name}. 4 fresh meals daily: breakfast, lunch, tiffin, and dinner cooked with RO purified water.`;
+
   return {
-    title: `Food Menu & Dining | ${settings.hostel_name}`,
-    description: `Explore the 7-day healthy weekly meal menu at ${settings.hostel_name}. 4 fresh meals daily: breakfast, lunch, tiffin, and dinner cooked with RO purified water.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-rooftop.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-rooftop.jpg"],
+    },
   };
 }
 
 export default async function FoodMenuPage() {
   const { menu, settings } = await getSiteData();
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Weekly Food Menu", path: "/menu" },
+  ]);
+
+  const menuSchema = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: `${settings.hostel_name} Student Meal Menu`,
+    description: "7-day meal schedule including breakfast, lunch dal bhat, afternoon tiffin snacks, and dinner.",
+    url: `${SITE_URL}/menu`,
+    hasMenuSection: menu.map((m) => {
+      const dayLabel = typeof m.day === "number" ? DAY_NAMES[m.day] || `Day ${m.day}` : m.day;
+      return {
+        "@type": "MenuSection",
+        name: dayLabel,
+        hasMenuItem: [
+          { "@type": "MenuItem", name: "Breakfast", description: m.breakfast },
+          { "@type": "MenuItem", name: "Lunch (Dal Bhat)", description: m.lunch },
+          { "@type": "MenuItem", name: "Afternoon Snacks", description: m.snacks },
+          { "@type": "MenuItem", name: "Dinner", description: m.dinner },
+        ],
+      };
+    }),
+  };
+
   return (
     <>
+      <JsonLd id="menu-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="food-menu-schema" data={menuSchema} />
+
       <PageBanner
         title="Weekly Food Menu"
         label="homely meals cooked fresh daily"
@@ -96,49 +148,52 @@ export default async function FoodMenuPage() {
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {menu.map((day) => (
-              <div
-                key={day.day}
-                className="flex flex-col rounded-3xl border border-line bg-white p-7 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand/40"
-              >
-                <div className="flex items-center justify-between border-b border-line pb-4">
-                  <h3 className="display text-2xl text-brand">{day.day}</h3>
-                  <span className="oswald text-[11px] !tracking-[0.16em] rounded-full bg-sand px-3 py-1 uppercase text-muted font-bold">
-                    4 Meals
-                  </span>
+            {menu.map((day) => {
+              const dayName = typeof day.day === "number" ? DAY_NAMES[day.day] || `Day ${day.day}` : day.day;
+              return (
+                <div
+                  key={String(day.day)}
+                  className="flex flex-col rounded-3xl border border-line bg-white p-7 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand/40"
+                >
+                  <div className="flex items-center justify-between border-b border-line pb-4">
+                    <h3 className="display text-2xl text-brand">{dayName}</h3>
+                    <span className="oswald text-[11px] !tracking-[0.16em] rounded-full bg-sand px-3 py-1 uppercase text-muted font-bold">
+                      4 Meals
+                    </span>
+                  </div>
+
+                  <div className="mt-5 space-y-4 flex-1">
+                    <div>
+                      <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
+                        <Coffee className="size-3 text-sun-dark" /> Breakfast
+                      </span>
+                      <p className="mt-1 text-sm font-medium text-ink font-serif">{day.breakfast || "Chiya & Bread / Chana"}</p>
+                    </div>
+
+                    <div>
+                      <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
+                        <Sun className="size-3 text-sun-dark" /> Lunch (Dal Bhat)
+                      </span>
+                      <p className="mt-1 text-sm font-medium text-ink font-serif">{day.lunch || "Bhat, Dal, Seasonal Tarkari, Achar"}</p>
+                    </div>
+
+                    <div>
+                      <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
+                        <Sparkles className="size-3 text-leaf" /> Afternoon Tiffin / Snacks
+                      </span>
+                      <p className="mt-1 text-sm font-medium text-ink font-serif">{day.snacks || "Tea & Fresh Snack"}</p>
+                    </div>
+
+                    <div>
+                      <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
+                        <Moon className="size-3 text-ink" /> Dinner
+                      </span>
+                      <p className="mt-1 text-sm font-medium text-ink font-serif">{day.dinner || "Roti / Rice, Dal, Tarkari"}</p>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="mt-5 space-y-4 flex-1">
-                  <div>
-                    <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
-                      <Coffee className="size-3 text-sun-dark" /> Breakfast
-                    </span>
-                    <p className="mt-1 text-sm font-medium text-ink font-serif">{day.breakfast || "Chiya & Bread / Chana"}</p>
-                  </div>
-
-                  <div>
-                    <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
-                      <Sun className="size-3 text-sun-dark" /> Lunch (Dal Bhat)
-                    </span>
-                    <p className="mt-1 text-sm font-medium text-ink font-serif">{day.lunch || "Bhat, Dal, Seasonal Tarkari, Achar"}</p>
-                  </div>
-
-                  <div>
-                    <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
-                      <Sparkles className="size-3 text-leaf" /> Afternoon Tiffin / Snacks
-                    </span>
-                    <p className="mt-1 text-sm font-medium text-ink font-serif">{day.snacks || "Tea & Fresh Snack"}</p>
-                  </div>
-
-                  <div>
-                    <span className="oswald text-[11px] !tracking-[0.16em] text-muted uppercase font-semibold flex items-center gap-1.5">
-                      <Moon className="size-3 text-ink" /> Dinner
-                    </span>
-                    <p className="mt-1 text-sm font-medium text-ink font-serif">{day.dinner || "Roti / Rice, Dal, Tarkari"}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

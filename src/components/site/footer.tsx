@@ -18,7 +18,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
               <Logo settings={settings} />
             </Link>
             <p className="text-xs text-muted font-serif leading-relaxed">
-              {settings.tagline || "A safe, clean, and modern living home located centrally in Pilachhen, Lalitpur."}
+              {settings.tagline || "A safe, clean, and modern living home located centrally at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley)."}
             </p>
             <div className="pt-2">
               <span className="oswald text-[12px] !tracking-[0.16em] uppercase text-ink font-semibold block mb-2">Connect</span>

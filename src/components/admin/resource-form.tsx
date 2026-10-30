@@ -34,6 +34,20 @@ export function ResourceForm({ resourceKey, id, initial }: { resourceKey: string
 function FieldInput({ field: f, value, folder }: { field: Field; value: unknown; folder: string }) {
   const help = f.help && <span className="mt-1 block text-xs text-muted">{f.help}</span>;
   switch (f.type) {
+    case "select":
+      return (
+        <label className="block">
+          <span className="label">{f.label}{f.required && " *"}</span>
+          <select name={f.name} defaultValue={String(value ?? f.default ?? "")} className="input">
+            {(f.options ?? []).map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          {help}
+        </label>
+      );
     case "checkbox":
       return (
         <label className="flex h-full items-center gap-3 rounded-lg border border-line px-4 py-3">

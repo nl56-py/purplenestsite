@@ -52,7 +52,8 @@ export default async function ResourceListPage({ params }: { params: Promise<{ r
                   <span className="line-clamp-2">{res.label(row)}</span>
                 </Link>
                 <p className="mt-0.5 line-clamp-1 text-sm text-muted">
-                  {res.key === "rooms" && `${formatRs(Number(row.monthly_fee))}/month · ${row.beds_per_room} per room`}
+                  {res.key === "rooms" && `${formatRs(Number(row.monthly_fee))}/month · ${row.beds_per_room} per room · ${row.block_name || "Block A"}${row.floor_name ? ` · ${row.floor_name}` : ""}${row.room_number ? ` · Rm ${row.room_number}` : ""}`}
+                  {res.key === "blocks" && `Code: ${row.code || "-"} · Category: ${row.gender_type || "All"}${row.description ? ` · ${row.description}` : ""}`}
                   {res.key === "notices" && (
                     <>
                       {formatDate(String(row.published_at))}

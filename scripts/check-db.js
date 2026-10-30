@@ -23,7 +23,7 @@ function loadEnv() {
 
 async function check() {
   loadEnv();
-  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:qt3fPi%24UjdQThZ%3F@db.xqyolwqyhvowrupuxpgv.supabase.co:5432/postgres';
+  const connectionString = process.env.DATABASE_URL;
 
   const client = new Client({
     connectionString,
@@ -35,11 +35,17 @@ async function check() {
   const settings = await client.query('select hostel_name, hostel_type, theme_color, phone, address from site_settings where id = 1');
   console.log('Site settings in DB:', settings.rows[0]);
 
-  const rooms = await client.query('select count(*) from rooms');
-  console.log('Rooms in DB:', rooms.rows[0].count);
+  const blocks = await client.query('select name, code, gender_type from blocks order by sort_order');
+  console.log('Blocks in DB:', blocks.rows);
 
-  const facilities = await client.query('select count(*) from facilities');
-  console.log('Facilities in DB:', facilities.rows[0].count);
+  const floors = await client.query('select count(*) from floors');
+  console.log('Floors count in DB:', floors.rows[0].count);
+
+  const rooms = await client.query('select name, block_name, floor_name, room_number, available_beds, total_beds from rooms order by sort_order');
+  console.log('Rooms in DB:', rooms.rows);
+
+  const beds = await client.query('select count(*) from beds');
+  console.log('Beds count in DB:', beds.rows[0].count);
 
   const users = await client.query('select id, email, created_at, (encrypted_password = extensions.crypt(\'12345678\', encrypted_password)) as password_matches from auth.users');
   console.log('Auth users in DB:', users.rows);

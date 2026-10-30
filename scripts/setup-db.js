@@ -23,7 +23,7 @@ function loadEnv() {
 
 async function main() {
   loadEnv();
-  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:qt3fPi%24UjdQThZ%3F@db.xqyolwqyhvowrupuxpgv.supabase.co:5432/postgres';
+  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres.juwxqzxgafunexyxlgej:[YOUR-PASSWORD]@aws-1-eu-west-3.pooler.supabase.com:5432/postgres';
   
   console.log(`Connecting to database...`);
   const client = new Client({

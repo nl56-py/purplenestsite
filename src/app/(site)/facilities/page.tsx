@@ -4,20 +4,70 @@ import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { getFacilities, getSiteData } from "@/lib/data";
 import { FacilityIcon } from "@/lib/icons";
 import { SectionHeading } from "@/components/site/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Hostel Facilities & Amenities | The Purple Nest",
-  description: "Explore all facilities at The Purple Nest Hostel: High-speed Wi-Fi, 4 fresh meals daily, 24/7 security, solar hot water, study hall, and laundry.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { settings } = await getSiteData();
+  const url = `${SITE_URL}/facilities`;
+  const title = `Hostel Facilities & Amenities | ${settings.hostel_name}`;
+  const description = `Explore all student facilities at ${settings.hostel_name}: High-speed Wi-Fi, 4 fresh meals daily, 24/7 CCTV & biometric security, solar hot water, study hall, and laundry.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
+  };
+}
 
 export default async function FacilitiesIndexPage() {
   const [facilities, siteData] = await Promise.all([getFacilities(), getSiteData()]);
   const published = facilities.filter((f) => f.is_published);
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Facilities", path: "/facilities" },
+  ]);
+
+  const facilitiesListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Purple Nest Hostel Facilities & Services",
+    description: "Amenities provided to student residents at The Purple Nest Hostel.",
+    numberOfItems: published.length,
+    itemListElement: published.map((f, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: f.title,
+        description: f.description,
+        url: `${SITE_URL}/facilities/${f.slug || f.id}`,
+      },
+    })),
+  };
+
   return (
     <div className="py-16 md:py-24 bg-sand/30">
+      <JsonLd id="facilities-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="facilities-list-schema" data={facilitiesListSchema} />
+
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHeading title="Our Facilities" label="everything you need to study & live easy" />
         <p className="mx-auto mt-6 max-w-2xl text-center text-[16px] text-muted font-serif leading-relaxed">
@@ -96,8 +146,8 @@ export default async function FacilitiesIndexPage() {
             No hidden costs or extra surprise charges for water, Wi-Fi, electricity, or laundry. Visit {siteData.settings.hostel_name} today!
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="/#rooms" className="tbtn tbtn-sun px-10">Choose a room</a>
-            <a href="/#contact" className="tbtn tbtn-dark px-10">Contact hostel</a>
+            <Link href="/rooms" className="tbtn tbtn-sun px-10">Choose a room</Link>
+            <Link href="/contact" className="tbtn tbtn-dark px-10">Contact hostel</Link>
           </div>
         </div>
       </div>

@@ -168,7 +168,7 @@ const EDITABLE_SECTIONS = [
     icon: CheckCircle2,
     items: [
       { name: "Phones & WhatsApp", desc: "Direct calling and instant WhatsApp chat with warden." },
-      { name: "Address & Office Hours", desc: "Pilachhen/Lalitpur location and visiting times." },
+      { name: "Address & Office Hours", desc: "Gwarko/Lalitpur location and visiting times." },
       { name: "Google Map Embed", desc: "Embed real interactive Google Map showing hostel location." },
       { name: "Social Media Links", desc: "Facebook, Instagram, TikTok, and YouTube links in header and footer." },
     ],

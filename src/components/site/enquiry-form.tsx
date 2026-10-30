@@ -87,8 +87,8 @@ export function EnquiryForm({ rooms }: { rooms: Room[] }) {
           <option value="">Room type — not sure yet</option>
           {rooms.map((r) => (
             <option key={r.id} value={r.id}>
-              {r.name}
-              {r.available_beds === 0 ? " (full — waiting list)" : ""}
+              {r.block_name ? `[${r.block_name}${r.floor_name ? ` · ${r.floor_name}` : ""}${r.room_number ? ` · Rm ${r.room_number}` : ""}] ` : ""}{r.name}
+              {r.available_beds === 0 ? " (full — waiting list)" : ` (${r.available_beds} beds free)`}
             </option>
           ))}
         </select>

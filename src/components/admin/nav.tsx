@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  BedDouble, CircleHelp, ExternalLink, Images, Inbox, LayoutDashboard, Loader2, LogOut, Megaphone, Menu, MessageSquareQuote,
+  BedDouble, Building2, CircleHelp, ExternalLink, Images, Inbox, LayoutDashboard, Loader2, LogOut, Megaphone, Menu, MessageSquareQuote,
   ScrollText, Settings, Sparkles, UserRound, UtensilsCrossed, X,
 } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 
 const LINKS = [
   { href: "/admin", label: "Dashboard", Icon: LayoutDashboard },
+  { href: "/admin/blocks", label: "Blocks (A, B, C)", Icon: Building2 },
   { href: "/admin/rooms", label: "Rooms & beds", Icon: BedDouble },
   { href: "/admin/notices", label: "Notices & popup", Icon: Megaphone },
   { href: "/admin/enquiries", label: "Enquiries", Icon: Inbox, badge: true },

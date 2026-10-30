@@ -27,7 +27,7 @@ async function seedAdmin(adminEmail, adminPassword) {
   const email = adminEmail || process.argv[2] || 'hostelweb@nexa.com';
   const password = adminPassword || process.argv[3] || '12345678';
 
-  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:qt3fPi%24UjdQThZ%3F@db.xqyolwqyhvowrupuxpgv.supabase.co:5432/postgres';
+  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres.juwxqzxgafunexyxlgej:[YOUR-PASSWORD]@aws-1-eu-west-3.pooler.supabase.com:5432/postgres';
 
   const client = new Client({
     connectionString,
@@ -86,12 +86,12 @@ async function seedAdmin(adminEmail, adminPassword) {
         extensions.uuid_generate_v4(),
         'authenticated',
         'authenticated',
-        $1,
+        $1::varchar,
         extensions.crypt($2, extensions.gen_salt('bf')),
         now(),
         now(),
         '{"provider":"email","providers":["email"]}'::jsonb,
-        jsonb_build_object('email', $1::text),
+        jsonb_build_object('email', $1::varchar),
         now(),
         now(),
         false,

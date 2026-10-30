@@ -1,25 +1,63 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, BookOpen, Utensils, MapPin, Award, CheckCircle, Clock, HeartHandshake } from "lucide-react";
+import { ShieldCheck, BookOpen, Utensils, MapPin, Award, HeartHandshake } from "lucide-react";
 import { getSiteData } from "@/lib/data";
 import { PageBanner } from "@/components/site/page-banner";
 import { Reviews } from "@/components/site/reviews";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
+  const url = `${SITE_URL}/about`;
+  const title = `About Us | ${settings.hostel_name}`;
+  const description = `Learn about ${settings.hostel_name} at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley). A safe, clean, and disciplined student hostel established in ${settings.established_year || 2015} with 4 daily meals and 24/7 security.`;
   return {
-    title: `About Us | ${settings.hostel_name}`,
-    description: `Learn about ${settings.hostel_name} in Pilachhen, Lalitpur. A safe, clean, and disciplined hostel established in ${settings.established_year || 2015}.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
   };
 }
 
 export default async function AboutPage() {
   const { settings, testimonials } = await getSiteData();
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
+  ]);
+
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `About ${settings.hostel_name}`,
+    description: `Story, mission and academic living standards at ${settings.hostel_name} in Pilachhen, Lalitpur.`,
+    url: `${SITE_URL}/about`,
+    mainEntity: {
+      "@id": `${SITE_URL}/#hostel`,
+    },
+  };
+
   return (
     <>
+      <JsonLd id="about-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="about-page-schema" data={aboutSchema} />
       <PageBanner
         title={`About ${settings.hostel_name}`}
         label="your second home in kathmandu"
@@ -145,7 +183,7 @@ export default async function AboutPage() {
               </div>
               <h3 className="oswald mt-5 text-[19px] font-medium text-ink">Prime Lalitpur Location</h3>
               <p className="mt-2 text-sm text-muted leading-relaxed">
-                Located in peaceful Pilachhen, Lalitpur, with quick access to Patan, colleges, entrance coaching, and daily conveniences.
+                Located at Sinpa Marg, Gwarko, Lalitpur, with quick access to Ring Road, Gwarko Chowk, Patan, Kathmandu Valley colleges, and daily conveniences.
               </p>
             </div>
           </div>

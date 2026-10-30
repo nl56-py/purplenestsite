@@ -170,7 +170,10 @@ export function CheckAvailabilityModal({
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h4 className="display text-2xl text-ink">{selectedRoom.name}</h4>
-                    <p className="text-xs text-muted mt-0.5">{selectedRoom.beds_per_room} Person Seater Room</p>
+                    <p className="text-xs text-muted mt-0.5">
+    {selectedRoom.beds_per_room} Person Seater Room
+    {selectedRoom.block_name ? ` · ${selectedRoom.block_name}${selectedRoom.floor_name ? ` (${selectedRoom.floor_name})` : ""}` : ""}
+  </p>
                   </div>
                   <div className="text-right">
                     <span className="display text-2xl text-brand">{formatRs(selectedRoom.monthly_fee)}</span>
@@ -271,7 +274,10 @@ export function CheckAvailabilityModal({
                         className="flex items-center justify-between rounded-xl border border-line bg-white p-3 transition hover:border-brand"
                       >
                         <div>
-                          <p className="oswald text-sm font-semibold text-ink">{alt.name}</p>
+                          <p className="oswald text-sm font-semibold text-ink">
+    {alt.name}
+    {alt.block_name ? <span className="ml-1 text-xs text-brand font-medium">({alt.block_name})</span> : null}
+  </p>
                           <p className="text-xs text-emerald-700 font-medium">
                             {alt.available_beds} beds free • {formatRs(alt.monthly_fee)}/mo
                           </p>

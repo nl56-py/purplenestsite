@@ -17,12 +17,12 @@ update public.site_settings set
   hostel_type   = 'Student Hostel',
   tagline       = 'Safe, clean and homely stay for students in the heart of Kathmandu.',
   hero_slides   = '[
-    {"image":"/images/hero-exterior.jpg","title":"Study hard, live easy","subtitle":"A safe, friendly home for students and professionals — located in peaceful Pilachhen, Lalitpur."},
+    {"image":"/images/hero-exterior.jpg","title":"Study hard, live easy","subtitle":"A safe, friendly home for students and professionals — located in Gwarko, Lalitpur."},
     {"image":"/images/hero-room.jpg","title":"Homely Comfort in Kathmandu","subtitle":"Spacious, well-ventilated rooms with private study tables, daily cleaning and 24/7 solar hot water."},
     {"image":"/images/hero-rooftop.jpg","title":"Admissions open for 2026","subtitle":"Join our vibrant student community. Scenic rooftop lounge, quiet study hall & fresh homely meals."}
   ]'::jsonb,
   about_title   = 'Namaste!',
-  about_text    = 'The Purple Nest Hostel has been designed to provide ambitious students and working professionals with a peaceful, safe, and vibrant home away from home in Pilachhen, Lalitpur.
+  about_text    = 'The Purple Nest Hostel has been designed to provide ambitious students and working professionals with a peaceful, safe, and vibrant home away from home at Sinpa Marg, Gwarko, Lalitpur.
 
 Our premises feature 24/7 CCTV surveillance, biometric security, dedicated in-house warden supervision, and daily room housekeeping. Fresh, hygienic meals prepared in our modern kitchen ensure students stay energized and healthy throughout their academic journey.',
   about_image   = '/images/hero-exterior.jpg',
@@ -31,10 +31,10 @@ Our premises feature 24/7 CCTV surveillance, biometric security, dedicated in-ho
   phone_alt     = null,
   whatsapp      = '9779761158651',
   email         = 'stayatthepurplenest@gmail.com',
-  address       = 'Sinpa Marg, Pilachhen, Lalitpur 44700, Nepal',
-  map_embed_url = 'https://www.google.com/maps?q=Sinpa+Marg,+Pilachhen,+Lalitpur+44700,+Nepal&output=embed',
+  address       = 'Sinpa Marg, Gwarko, Lalitpur, Bagmati Province 44700, Nepal',
+  map_embed_url = 'https://www.google.com/maps?q=27.668759882855277,85.33061044536188&output=embed',
   office_hours  = 'Every day, 7:00 AM – 8:00 PM',
-  facebook_url  = 'https://www.facebook.com/p/The-Purple-Nest-61589625489923/',
+  facebook_url  = 'https://www.facebook.com/profile.php?id=61589625489923',
   instagram_url = 'https://instagram.com',
   admission_open = true,
   promo_title   = 'Homely Meals Cooked Daily',

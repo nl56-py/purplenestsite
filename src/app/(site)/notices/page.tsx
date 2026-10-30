@@ -4,14 +4,69 @@ import { ArrowRight, Pin } from "lucide-react";
 import { getSiteData } from "@/lib/data";
 import { formatDate } from "@/lib/format";
 import { SectionHeading } from "@/components/site/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
-export const metadata: Metadata = { title: "Notices" };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { settings } = await getSiteData();
+  const url = `${SITE_URL}/notices`;
+  const title = `Notices & Announcements | ${settings.hostel_name}`;
+  const description = `Latest official notices, admission updates, holiday schedules, and event announcements from ${settings.hostel_name} administration.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
+  };
+}
 
 export default async function NoticesPage() {
-  const { notices } = await getSiteData();
+  const { notices, settings } = await getSiteData();
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Notices", path: "/notices" },
+  ]);
+
+  const noticesListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${settings.hostel_name} Official Notices`,
+    description: "Official announcements from the hostel administration.",
+    numberOfItems: notices.length,
+    itemListElement: notices.map((n, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "NewsArticle",
+        headline: n.title,
+        datePublished: n.published_at || new Date().toISOString(),
+        url: `${SITE_URL}/notices/${n.id}`,
+      },
+    })),
+  };
+
   return (
     <div className="bg-sand">
+      <JsonLd id="notices-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="notices-list-schema" data={noticesListSchema} />
+
       <div className="mx-auto max-w-4xl px-5 py-20 md:py-24">
         <SectionHeading title="Notices" label="announcements from the hostel office" />
         <div className="mt-12 space-y-4">

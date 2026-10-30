@@ -23,7 +23,7 @@ export async function GET() {
       const [settingsRes, roomsRes] = await Promise.all([
         client.query("SELECT admission_open, hostel_name FROM public.site_settings WHERE id = 1"),
         client.query(`
-          SELECT id, name, beds_per_room, total_beds, available_beds, monthly_fee, is_published, sort_order
+          SELECT id, name, block_name, floor_name, room_number, beds_per_room, total_beds, available_beds, monthly_fee, is_published, sort_order
           FROM public.rooms
           WHERE is_published = true
           ORDER BY sort_order ASC, created_at ASC
@@ -44,9 +44,12 @@ export async function GET() {
           admission_open,
           total_available,
           total_beds,
-          rooms: rooms.map((r: { id: string; name: string; beds_per_room: number; total_beds: number; available_beds: number; monthly_fee: number }) => ({
+          rooms: rooms.map((r: { id: string; name: string; block_name?: string; floor_name?: string; room_number?: string; beds_per_room: number; total_beds: number; available_beds: number; monthly_fee: number }) => ({
             id: r.id,
             name: r.name,
+            block_name: r.block_name || '',
+            floor_name: r.floor_name || '',
+            room_number: r.room_number || '',
             beds_per_room: r.beds_per_room,
             total_beds: r.total_beds,
             available_beds: r.available_beds,
@@ -73,7 +76,7 @@ export async function GET() {
         sb.from("site_settings").select("admission_open, hostel_name").eq("id", 1).maybeSingle(),
         sb
           .from("rooms")
-          .select("id, name, beds_per_room, total_beds, available_beds, monthly_fee, is_published, sort_order")
+          .select("id, name, block_name, floor_name, room_number, beds_per_room, total_beds, available_beds, monthly_fee, is_published, sort_order")
           .eq("is_published", true)
           .order("sort_order")
           .order("created_at"),

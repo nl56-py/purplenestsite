@@ -37,9 +37,45 @@ export type SiteSettings = {
   updated_at: string;
 };
 
+export type Block = {
+  id: string;
+  name: string;
+  code: string;
+  gender_type: string;
+  description: string;
+  image_url: string | null;
+  sort_order: number;
+  is_published: boolean;
+  created_at?: string;
+};
+
+export type Floor = {
+  id: string;
+  block_id: string;
+  name: string;
+  floor_number: number;
+  sort_order: number;
+  created_at?: string;
+};
+
+export type Bed = {
+  id: string;
+  room_id: string;
+  bed_number: string;
+  is_occupied: boolean;
+  notes?: string;
+  sort_order: number;
+  created_at?: string;
+};
+
 export type Room = {
   id: string;
   name: string;
+  block_id?: string | null;
+  floor_id?: string | null;
+  block_name?: string;
+  floor_name?: string;
+  room_number?: string;
   description: string;
   beds_per_room: number;
   total_beds: number;
@@ -118,6 +154,7 @@ export type Enquiry = {
 
 export type SiteData = {
   settings: SiteSettings;
+  blocks: Block[];
   rooms: Room[];
   gallery: GalleryImage[];
   facilities: Facility[];

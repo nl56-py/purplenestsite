@@ -40,6 +40,25 @@ export type Resource = {
 };
 
 export const RESOURCES: Record<string, Resource> = {
+  blocks: {
+    key: "blocks",
+    table: "blocks",
+    title: "Blocks",
+    singular: "block",
+    description: "Hostel building blocks (Block A, Block B, Block C). Rooms and beds are organized under each block.",
+    sortable: true,
+    publishField: "is_published",
+    order: [{ column: "sort_order", ascending: true }, { column: "created_at", ascending: true }],
+    label: (b) => String(b.name),
+    sub: (b) => `${b.code ? `Code: ${b.code} · ` : ""}${b.gender_type || "All"}`,
+    fields: [
+      { name: "name", label: "Block name", type: "text", required: true, placeholder: "Block A", maxLength: 80 },
+      { name: "code", label: "Block code / label", type: "text", required: true, placeholder: "A", maxLength: 10, half: true },
+      { name: "gender_type", label: "Resident category", type: "select", options: ["All", "Boys", "Girls"], default: "All", half: true },
+      { name: "description", label: "Description", type: "textarea", placeholder: "Main block with attached bathrooms, study rooms...", maxLength: 600 },
+      { name: "is_published", label: "Show on website", type: "checkbox", default: true, half: true },
+    ],
+  },
   rooms: {
     key: "rooms",
     table: "rooms",
@@ -49,9 +68,12 @@ export const RESOURCES: Record<string, Resource> = {
     sortable: true,
     publishField: "is_published",
     order: [{ column: "sort_order", ascending: true }, { column: "created_at", ascending: true }],
-    label: (r) => String(r.name),
+    label: (r) => `${r.name}${r.block_name ? ` (${r.block_name}${r.room_number ? ` - Rm ${r.room_number}` : ""})` : ""}`,
     fields: [
       { name: "name", label: "Room type name", type: "text", required: true, placeholder: "Triple Seater", maxLength: 80 },
+      { name: "block_name", label: "Block", type: "select", options: ["Block A", "Block B", "Block C", "General"], default: "Block A", half: true },
+      { name: "floor_name", label: "Floor", type: "select", options: ["Ground Floor", "1st Floor", "2nd Floor", "3rd Floor", "4th Floor"], default: "1st Floor", half: true },
+      { name: "room_number", label: "Room number", type: "text", placeholder: "101", maxLength: 20, half: true },
       { name: "beds_per_room", label: "Beds per room (seater)", type: "number", required: true, min: 1, max: 20, default: 2, half: true },
       { name: "monthly_fee", label: "Monthly fee (Rs.)", type: "number", required: true, min: 0, default: 0, half: true },
       { name: "total_beds", label: "Total beds of this type", type: "number", required: true, min: 0, default: 0, half: true },

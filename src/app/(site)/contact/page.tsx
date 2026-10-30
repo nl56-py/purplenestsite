@@ -1,29 +1,72 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock, MessageCircle, HelpCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { getSiteData } from "@/lib/data";
 import { PageBanner } from "@/components/site/page-banner";
 import { telHref, whatsappHref } from "@/lib/format";
 import { EnquiryForm } from "@/components/site/enquiry-form";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema, generateFaqSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
+  const url = `${SITE_URL}/contact`;
+  const title = `Contact Us & Location | ${settings.hostel_name}`;
+  const description = `Get in touch with ${settings.hostel_name} at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley). Phone numbers, WhatsApp chat, office hours, and interactive directions map.`;
+
   return {
-    title: `Contact Us & Location | ${settings.hostel_name}`,
-    description: `Get in touch with ${settings.hostel_name} in Pilachhen, Lalitpur. Contact details, visiting hours, WhatsApp chat, and interactive Google Map.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
   };
 }
 
 export default async function ContactPage() {
   const { settings, rooms, faqs } = await getSiteData();
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Contact & Location", path: "/contact" },
+  ]);
+
+  const faqSchema = generateFaqSchema(faqs);
+
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: `Contact ${settings.hostel_name}`,
+    description: `Contact and location information for ${settings.hostel_name} at Sinpa Marg, Gwarko, Lalitpur, Bagmati Province 44700, Nepal.`,
+    url: `${SITE_URL}/contact`,
+    mainEntity: {
+      "@id": `${SITE_URL}/#hostel`,
+    },
+  };
+
   return (
     <>
+      <JsonLd id="contact-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="contact-page-schema" data={contactPageSchema} />
+      {faqSchema && <JsonLd id="contact-faqs-schema" data={faqSchema} />}
+
       <PageBanner
         title="Contact & Location"
         label="get in touch • schedule a visit"
-        description="We are located at Sinpa Marg, Pilachhen, Lalitpur. Reach out by phone, WhatsApp, or drop by during office hours."
+        description="We are located at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley). Reach out by phone, WhatsApp, or drop by during office hours."
       />
 
       {/* Main Contact Grid */}
@@ -52,7 +95,7 @@ export default async function ContactPage() {
                     <div>
                       <p className="oswald text-xs !tracking-[0.16em] uppercase text-muted font-semibold">Address</p>
                       <p className="mt-1 text-sm font-semibold text-ink font-serif">{settings.address}</p>
-                      <p className="mt-0.5 text-xs text-muted">Centrally located in Pilachhen, Lalitpur</p>
+                      <p className="mt-0.5 text-xs text-muted">Centrally located at Sinpa Marg, Gwarko, Lalitpur (near Gwarko Chowk & Ring Road)</p>
                     </div>
                   </div>
                 )}
@@ -155,7 +198,7 @@ export default async function ContactPage() {
             </p>
             <h3 className="display mt-1 text-2xl text-ink">Interactive Map & Directions</h3>
             <p className="mt-1 text-sm text-muted font-serif">
-              Conveniently located at Sinpa Marg, Pilachhen, Lalitpur with quick access to Patan and public transportation.
+              Conveniently located at Sinpa Marg, Gwarko, Lalitpur with rapid connectivity across Kathmandu Valley via the Ring Road and Gwarko Chowk.
             </p>
           </div>
           <iframe

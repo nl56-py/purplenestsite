@@ -78,9 +78,36 @@ alter table public.site_settings add column if not exists promo_button_link text
 -- ---------------------------------------------------------------------
 -- Room types and bed availability
 -- ---------------------------------------------------------------------
+-- Blocks & Floors
+create table if not exists public.blocks (
+  id           uuid primary key default gen_random_uuid(),
+  name         text not null,
+  code         text not null default '',
+  gender_type  text not null default 'All',
+  description  text not null default '',
+  image_url    text,
+  sort_order   int not null default 0,
+  is_published boolean not null default true,
+  created_at   timestamptz not null default now()
+);
+
+create table if not exists public.floors (
+  id           uuid primary key default gen_random_uuid(),
+  block_id     uuid not null references public.blocks (id) on delete cascade,
+  name         text not null,
+  floor_number int not null default 0,
+  sort_order   int not null default 0,
+  created_at   timestamptz not null default now()
+);
+
 create table if not exists public.rooms (
   id              uuid primary key default gen_random_uuid(),
   name            text not null,
+  block_id        uuid references public.blocks (id) on delete set null,
+  floor_id        uuid references public.floors (id) on delete set null,
+  block_name      text not null default '',
+  floor_name      text not null default '',
+  room_number     text not null default '',
   description     text not null default '',
   beds_per_room   int  not null default 1 check (beds_per_room between 1 and 20),
   total_beds      int  not null default 0 check (total_beds >= 0),
@@ -94,6 +121,16 @@ create table if not exists public.rooms (
   created_at      timestamptz not null default now(),
   updated_at      timestamptz not null default now(),
   constraint rooms_available_le_total check (available_beds <= total_beds)
+);
+
+create table if not exists public.beds (
+  id           uuid primary key default gen_random_uuid(),
+  room_id      uuid not null references public.rooms (id) on delete cascade,
+  bed_number   text not null,
+  is_occupied  boolean not null default false,
+  notes        text not null default '',
+  sort_order   int not null default 0,
+  created_at   timestamptz not null default now()
 );
 
 -- ---------------------------------------------------------------------
@@ -208,7 +245,7 @@ do $$
 declare t text;
 begin
   foreach t in array array['site_settings','rooms','gallery_images','facilities','rules',
-                           'notices','meal_menu','testimonials','faqs','enquiries']
+                           'notices','meal_menu','testimonials','faqs','enquiries','blocks','floors','beds']
   loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists "admin write" on public.%I', t);
@@ -230,6 +267,15 @@ create policy "public read" on public.rules for select to anon, authenticated us
 
 drop policy if exists "public read" on public.meal_menu;
 create policy "public read" on public.meal_menu for select to anon, authenticated using (true);
+
+drop policy if exists "public read" on public.blocks;
+create policy "public read" on public.blocks for select to anon, authenticated using (is_published or (select public.is_admin()));
+
+drop policy if exists "public read" on public.floors;
+create policy "public read" on public.floors for select to anon, authenticated using (true);
+
+drop policy if exists "public read" on public.beds;
+create policy "public read" on public.beds for select to anon, authenticated using (true);
 
 drop policy if exists "public read" on public.rooms;
 create policy "public read" on public.rooms for select to anon, authenticated

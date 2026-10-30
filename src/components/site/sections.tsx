@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, BellRing, Clock, Mail, MapPin, Phone, Pin, Star } from "lucide-react";
-import type { Facility, Faq, Notice, Room, Rule, SiteSettings } from "@/lib/types";
+import type { Block, Facility, Faq, Notice, Room, Rule, SiteSettings } from "@/lib/types";
 import { availabilityLabel, formatDate, formatRs, telHref } from "@/lib/format";
 import { FacilityIcon } from "@/lib/icons";
 import { SectionHeading } from "./section-heading";
 import { BookRoomButton } from "./book-room-button";
+import { RoomsCarouselBlockView } from "./rooms-carousel-block-view";
 import { EnquiryForm } from "./enquiry-form";
 import { Carousel } from "./carousel";
 import { AwardBadge } from "./badge";
@@ -66,67 +67,14 @@ export function About({ settings }: { settings: SiteSettings }) {
 }
 
 /* ------------------------------------------------------------------ Rooms */
-export function Rooms({ rooms, settings }: { rooms: Room[]; settings: SiteSettings }) {
+export function Rooms({ rooms, blocks, settings }: { rooms: Room[]; blocks?: Block[]; settings: SiteSettings }) {
   if (!rooms.length) return null;
   return (
     <section id="rooms" className="py-24 md:py-28">
       <div className={WRAP}>
-        <SectionHeading title="Rooms" label="choose your bed" />
+        <SectionHeading title="Rooms & Beds" label="choose your block and bed" />
         {settings.price_note && <p className="mx-auto mt-5 max-w-xl text-center">{settings.price_note}</p>}
-        <div className="mt-14">
-          <Carousel label="Rooms" itemClass="w-full sm:w-1/2 lg:w-1/3">
-            {rooms.map((room) => {
-              const status = availabilityLabel(room.available_beds, room.total_beds);
-              return (
-                <article key={room.id} className="group flex h-full flex-col bg-cream">
-                  <div className="img-fallback relative aspect-[4/3] overflow-hidden">
-                    {room.images[0] && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={room.images[0]} alt={room.name} loading="lazy" className="size-full object-cover transition duration-700 group-hover:scale-105" />
-                    )}
-                    {room.description && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-ink/75 p-8 text-center text-[14px] leading-relaxed text-white opacity-0 transition duration-500 group-hover:opacity-100">
-                        <span className="absolute size-40 rounded-full bg-brand/25" aria-hidden />
-                        <span className="relative">{room.description}</span>
-                      </div>
-                    )}
-                    <span
-                      className={`oswald absolute left-0 top-5 px-4 py-2 text-[11px] !tracking-[0.15em] ${
-                        status.tone === "full" ? "bg-ink text-white" : status.tone === "low" ? "bg-sun text-ink" : "bg-leaf text-white"
-                      }`}
-                    >
-                      {status.text}
-                    </span>
-                  </div>
-                  <div className="flex flex-1 flex-col items-center px-6 pb-9 pt-8 text-center">
-                    <h3 className="oswald text-[19px] font-medium leading-snug text-ink">{room.name}</h3>
-                    <p className="oswald mt-1 text-[11px] font-medium !tracking-[0.2em] text-muted">
-                      {room.beds_per_room} {room.beds_per_room === 1 ? "bed" : "beds"} per room · {room.total_beds} beds total
-                    </p>
-                    <div className="mt-5 flex items-center gap-3">
-                      <span className="text-right text-[13px] leading-tight">
-                        Per month
-                        <br />
-                        from
-                      </span>
-                      <span className="oswald text-[34px] font-medium normal-case !tracking-normal text-brand">{formatRs(room.monthly_fee)}</span>
-                    </div>
-                    {room.features.length > 0 && (
-                      <ul className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[13px]">
-                        {room.features.slice(0, 4).map((f) => (
-                          <li key={f} className="before:mr-1.5 before:text-brand before:content-['•']">{f}</li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="mt-auto pt-7">
-                      <BookRoomButton roomId={room.id} full={status.tone === "full"} />
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </Carousel>
-        </div>
+        <RoomsCarouselBlockView rooms={rooms} blocks={blocks} settings={settings} />
       </div>
     </section>
   );

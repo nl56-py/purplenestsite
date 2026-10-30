@@ -1,16 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldAlert, Clock, BookOpen, Sparkles, CreditCard, Ban, CheckCircle2, Phone } from "lucide-react";
+import { ShieldAlert, Clock, BookOpen, Sparkles, CreditCard, Ban } from "lucide-react";
 import { getSiteData } from "@/lib/data";
 import { PageBanner } from "@/components/site/page-banner";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
+  const url = `${SITE_URL}/rules`;
+  const title = `Rules & Code of Conduct | ${settings.hostel_name}`;
+  const description = `Read hostel rules, gate closing hours (8:30 PM), silence hours, and discipline policies at ${settings.hostel_name} in Gwarko, Lalitpur (Kathmandu Valley).`;
+
   return {
-    title: `Rules & Code of Conduct | ${settings.hostel_name}`,
-    description: `Read the hostel rules, gate timings, study silence hours, and resident guidelines for ${settings.hostel_name} in Pilachhen, Lalitpur.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
   };
 }
 
@@ -27,8 +48,27 @@ export default async function RulesPage() {
     Fees: CreditCard,
   };
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Rules & Guidelines", path: "/rules" },
+  ]);
+
+  const rulesSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `Hostel Rules & Conduct - ${settings.hostel_name}`,
+    description: `Code of conduct, silence hours, and safety policies for students at ${settings.hostel_name}.`,
+    url: `${SITE_URL}/rules`,
+    mainEntity: {
+      "@id": `${SITE_URL}/#hostel`,
+    },
+  };
+
   return (
     <>
+      <JsonLd id="rules-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="rules-page-schema" data={rulesSchema} />
+
       <PageBanner
         title="Hostel Rules & Code of Conduct"
         label="discipline • peace of mind • mutual respect"

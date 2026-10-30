@@ -1,20 +1,37 @@
 import Link from "next/link";
-import { ArrowRight, BedDouble, Inbox, Megaphone, Percent } from "lucide-react";
+import { ArrowRight, BedDouble, Building2, Inbox, Megaphone, Percent } from "lucide-react";
 import { requireAdmin } from "@/lib/admin";
 import { formatDateTime } from "@/lib/format";
 import { PageHeader } from "@/components/admin/ui";
 import { BedStepper } from "@/components/admin/bed-stepper";
-import type { Enquiry, Notice, Room } from "@/lib/types";
+import type { Block, Enquiry, Notice, Room } from "@/lib/types";
 
 export default async function Dashboard() {
   const { supabase } = await requireAdmin();
-  const [rooms, enquiries, popup, newCount] = await Promise.all([
+  const [rooms, blocksRes, enquiries, popup, newCount] = await Promise.all([
     supabase.from("rooms").select("*").order("sort_order").order("created_at"),
+    supabase.from("blocks").select("*").order("sort_order").order("created_at"),
     supabase.from("enquiries").select("*").order("created_at", { ascending: false }).limit(5),
     supabase.from("notices").select("*").eq("show_as_popup", true).eq("is_published", true).order("published_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("enquiries").select("id", { count: "exact", head: true }).eq("status", "new"),
   ]);
   const roomList = (rooms.data ?? []) as Room[];
+  const blockList = (blocksRes.data ?? []) as Block[];
+  
+  // Calculate per-block metrics
+  const defaultBlocks = blockList.length ? blockList : [
+    { id: 'a', name: 'Block A', code: 'A', gender_type: 'All', description: '', image_url: null, sort_order: 1, is_published: true },
+    { id: 'b', name: 'Block B', code: 'B', gender_type: 'All', description: '', image_url: null, sort_order: 2, is_published: true },
+    { id: 'c', name: 'Block C', code: 'C', gender_type: 'All', description: '', image_url: null, sort_order: 3, is_published: true },
+  ];
+
+  const blockStats = defaultBlocks.map((b) => {
+    const bRooms = roomList.filter((r) => (r.block_name || '').toLowerCase() === b.name.toLowerCase() || (r.block_name || '').includes(b.code));
+    const bTotal = bRooms.reduce((s, r) => s + r.total_beds, 0);
+    const bFree = bRooms.reduce((s, r) => s + r.available_beds, 0);
+    const bOccupancy = bTotal ? Math.round(((bTotal - bFree) / bTotal) * 100) : 0;
+    return { ...b, total: bTotal, free: bFree, occupancy: bOccupancy, roomCount: bRooms.length };
+  });
   const total = roomList.reduce((s, r) => s + r.total_beds, 0);
   const free = roomList.reduce((s, r) => s + r.available_beds, 0);
   const occupancy = total ? Math.round(((total - free) / total) * 100) : 0;
@@ -40,6 +57,49 @@ export default async function Dashboard() {
           </Link>
         ))}
       </div>
+
+      {/* Block-by-Block Hostel Overview */}
+      <section className="mt-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-muted">
+            <Building2 className="size-4 text-brand" /> Hostel Blocks (A, B, C) Overview
+          </h2>
+          <Link href="/admin/blocks" className="text-xs font-bold text-brand hover:underline">
+            Manage Blocks &rarr;
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {blockStats.map((b) => (
+            <div key={b.name} className="card p-4 transition hover:border-brand/60 bg-gradient-to-b from-white to-sand/20">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 font-bold text-ink">
+                  <span className="grid size-6 place-items-center rounded bg-brand/10 text-brand text-xs font-extrabold">
+                    {b.code || b.name[b.name.length - 1]}
+                  </span>
+                  {b.name}
+                </span>
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                  {b.free} free
+                </span>
+              </div>
+              <div className="mt-3 flex items-baseline justify-between text-xs text-muted">
+                <span>{b.roomCount} room types</span>
+                <span>{b.total} beds total</span>
+              </div>
+              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-stone-200">
+                <div
+                  className="h-full rounded-full bg-brand transition-all duration-500"
+                  style={{ width: `${b.occupancy}%` }}
+                />
+              </div>
+              <div className="mt-2 flex items-center justify-between text-[11px]">
+                <span className="text-muted">Occupancy</span>
+                <span className="font-bold text-ink">{b.occupancy}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Demo Showcase Guide Card */}
       <section className="mt-6 rounded-2xl border border-amber-300/80 bg-gradient-to-br from-amber-50/90 via-orange-50/50 to-white p-5 shadow-xs">
@@ -94,7 +154,7 @@ export default async function Dashboard() {
             {roomList.map((r) => (
               <li key={r.id} className="flex items-center justify-between gap-3 py-3">
                 <span className="min-w-0">
-                  <span className="block truncate font-semibold">{r.name}</span>
+                  <span className="block truncate font-semibold">{r.name} {r.block_name ? <span className="ml-1 text-xs font-bold text-brand">[{r.block_name}{r.room_number ? ` · Rm ${r.room_number}` : ""}]</span> : null}</span>
                   <span className="text-xs text-muted">{r.total_beds} beds total</span>
                 </span>
                 <BedStepper id={r.id} value={r.available_beds} max={r.total_beds} />

@@ -3,22 +3,64 @@ import Link from "next/link";
 import { getSiteData } from "@/lib/data";
 import { PageBanner } from "@/components/site/page-banner";
 import { Gallery } from "@/components/site/gallery";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo-schema";
+import { SITE_URL } from "@/lib/site-config";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
+  const url = `${SITE_URL}/gallery`;
+  const title = `Photo Gallery | ${settings.hostel_name}`;
+  const description = `Take a photo tour of ${settings.hostel_name} in Gwarko, Lalitpur: Student bedrooms, quiet study hall, dining area, rooftop terrace, and building exterior.`;
+
   return {
-    title: `Photo Gallery | ${settings.hostel_name}`,
-    description: `Take a photo tour of ${settings.hostel_name} in Pilachhen, Lalitpur: Student bedrooms, quiet study hall, dining area, rooftop terrace, and building exterior.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ["/images/hero-exterior.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/hero-exterior.jpg"],
+    },
   };
 }
 
 export default async function GalleryPage() {
   const { gallery, settings } = await getSiteData();
 
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Photo Gallery", path: "/gallery" },
+  ]);
+
+  const gallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: `${settings.hostel_name} Photo Gallery`,
+    description: `Photos of hostel rooms, study halls, kitchen and building at ${settings.hostel_name}.`,
+    url: `${SITE_URL}/gallery`,
+    image: gallery.map((g) => ({
+      "@type": "ImageObject",
+      contentUrl: g.image_url.startsWith("http") ? g.image_url : `${SITE_URL}${g.image_url}`,
+      caption: g.caption,
+    })),
+  };
+
   return (
     <>
+      <JsonLd id="gallery-breadcrumbs" data={breadcrumbs} />
+      <JsonLd id="photo-gallery-schema" data={gallerySchema} />
+
       <PageBanner
         title="Hostel Photo Gallery"
         label="explore our building, rooms & atmosphere"

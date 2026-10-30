@@ -2,19 +2,19 @@ import "server-only";
 import { cache } from "react";
 import { createPublicClient } from "./supabase/public";
 import { isSupabaseConfigured } from "./supabase/env";
-import type { Facility, Faq, GalleryImage, MealDay, Notice, Room, Rule, SiteData, SiteSettings, Testimonial } from "./types";
+import type { Block, Facility, Faq, GalleryImage, MealDay, Notice, Room, Rule, SiteData, SiteSettings, Testimonial } from "./types";
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   id: 1,
   hostel_name: "The Purple Nest",
   hostel_type: "Student Hostel",
-  tagline: "Safe, clean & homely stay for students in the heart of Kathmandu.",
+  tagline: "Safe, clean & homely stay for students in Gwarko, Lalitpur (Kathmandu Valley).",
   logo_url: "/images/purple-nest-icon.jpg",
   hero_slides: [
     {
       image: "/images/hero-exterior.jpg",
       title: "Study Hard, Live Easy",
-      subtitle: "A safe, friendly home for students and working professionals — located in peaceful Pilachhen, Lalitpur.",
+      subtitle: "A safe, friendly home for students and working professionals — located in Gwarko, Lalitpur.",
     },
     {
       image: "/images/hero-room.jpg",
@@ -29,24 +29,24 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   ],
   about_title: "Namaste!",
   about_text:
-    "The Purple Nest Hostel has been designed to provide ambitious students and working professionals with a peaceful, safe, and vibrant home away from home in Pilachhen, Lalitpur.\n\nOur premises feature 24/7 CCTV surveillance, biometric security, dedicated supervision, and daily housekeeping. Fresh, hygienic meals prepared in our modern kitchen ensure residents stay energized and healthy throughout their journey.",
+    "The Purple Nest Hostel has been designed to provide ambitious students and working professionals with a peaceful, safe, and vibrant home away from home at Sinpa Marg, Gwarko, Lalitpur.\n\nOur premises feature 24/7 CCTV surveillance, biometric security, dedicated supervision, and daily housekeeping. Fresh, hygienic meals prepared in our modern kitchen ensure residents stay energized and healthy throughout their journey.",
   about_image: "/images/hero-exterior.jpg",
   established_year: 2015,
   phone: "+977 976-1158651",
   phone_alt: null,
   whatsapp: "9779761158651",
   email: "stayatthepurplenest@gmail.com",
-  address: "Sinpa Marg, Pilachhen, Lalitpur 44700, Nepal",
-  map_embed_url: "https://www.google.com/maps?q=Sinpa+Marg,+Pilachhen,+Lalitpur+44700,+Nepal&output=embed",
+  address: "Sinpa Marg, Gwarko, Lalitpur, Bagmati Province 44700, Nepal",
+  map_embed_url: "https://www.google.com/maps?q=27.668759882855277,85.33061044536188&output=embed",
   office_hours: "Every day, 7:00 AM – 8:00 PM",
-  facebook_url: "https://www.facebook.com/p/The-Purple-Nest-61589625489923/",
+  facebook_url: "https://www.facebook.com/profile.php?id=61589625489923",
   instagram_url: "https://instagram.com",
   tiktok_url: null,
   youtube_url: null,
   admission_open: true,
   price_note: "Fees include 4 daily meals, high-speed Wi-Fi, electricity, solar hot water, and laundry.",
   meta_description:
-    "The Purple Nest Hostel, Sinpa Marg, Pilachhen, Lalitpur — safe, clean rooms with homely meals, high-speed Wi-Fi and 24/7 security. Admissions open.",
+    "The Purple Nest Hostel, Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley) — safe, clean rooms with homely meals, high-speed Wi-Fi and 24/7 security. Admissions open.",
   theme_color: "#43106c",
   secondary_color: "#8b5cf6",
   promo_title: "Homely Meals Cooked Daily",
@@ -59,10 +59,46 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   updated_at: new Date(0).toISOString(),
 };
 
+export const DEMO_BLOCKS: Block[] = [
+  {
+    id: "block-a",
+    name: "Block A",
+    code: "A",
+    gender_type: "All",
+    description: "Main hostel block with attached bathrooms, large windows, and fast Wi-Fi.",
+    image_url: null,
+    sort_order: 1,
+    is_published: true,
+  },
+  {
+    id: "block-b",
+    name: "Block B",
+    code: "B",
+    gender_type: "All",
+    description: "Quiet residential block dedicated to peaceful study and comfortable living.",
+    image_url: null,
+    sort_order: 2,
+    is_published: true,
+  },
+  {
+    id: "block-c",
+    name: "Block C",
+    code: "C",
+    gender_type: "All",
+    description: "Affordable group rooms with great natural light and study desks.",
+    image_url: null,
+    sort_order: 3,
+    is_published: true,
+  },
+];
+
 export const DEMO_ROOMS: Room[] = [
   {
     id: "1",
     name: "Single Seater",
+    block_name: "Block A",
+    floor_name: "1st Floor",
+    room_number: "101",
     description: "A private room for students who want full focus. Study table, chair, wardrobe, attached bathroom and large sunny window.",
     beds_per_room: 1,
     total_beds: 6,
@@ -77,6 +113,9 @@ export const DEMO_ROOMS: Room[] = [
   {
     id: "2",
     name: "Double Seater",
+    block_name: "Block A",
+    floor_name: "2nd Floor",
+    room_number: "201",
     description: "Share with one roommate. Each student gets an individual bed, study table, and private wardrobe.",
     beds_per_room: 2,
     total_beds: 20,
@@ -91,6 +130,9 @@ export const DEMO_ROOMS: Room[] = [
   {
     id: "3",
     name: "Triple Seater",
+    block_name: "Block B",
+    floor_name: "1st Floor",
+    room_number: "B-102",
     description: "Our most popular choice — spacious, sunny, balcony access and budget friendly.",
     beds_per_room: 3,
     total_beds: 30,
@@ -105,6 +147,9 @@ export const DEMO_ROOMS: Room[] = [
   {
     id: "4",
     name: "Four Seater",
+    block_name: "Block C",
+    floor_name: "1st Floor",
+    room_number: "C-104",
     description: "The most affordable option, ideal for friends and classmates joining together.",
     beds_per_room: 4,
     total_beds: 24,
@@ -274,7 +319,7 @@ export const DEMO_FACILITIES: Facility[] = [
 ];
 
 export const DEMO_GALLERY: GalleryImage[] = [
-  { id: "g1", image_url: "/images/hero-exterior.jpg", caption: "Hostel building in Pilachhen, Lalitpur", category: "Building", sort_order: 1, storage_path: null },
+  { id: "g1", image_url: "/images/hero-exterior.jpg", caption: "Hostel building at Sinpa Marg, Gwarko, Lalitpur", category: "Building", sort_order: 1, storage_path: null },
   { id: "g2", image_url: "/images/hero-room.jpg", caption: "Double seater student room", category: "Rooms", sort_order: 2, storage_path: null },
   { id: "g3", image_url: "/images/hero-rooftop.jpg", caption: "Rooftop evening tea & student hangout", category: "Life", sort_order: 3, storage_path: null },
   { id: "g4", image_url: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=1200&q=80", caption: "Authentic Nepali Dal Bhat Thali", category: "Dining", sort_order: 4, storage_path: null },
@@ -389,6 +434,7 @@ export const DEMO_NOTICES: Notice[] = [
 
 export const DEMO_DATA: SiteData = {
   settings: DEFAULT_SETTINGS,
+  blocks: DEMO_BLOCKS,
   rooms: DEMO_ROOMS,
   gallery: DEMO_GALLERY,
   facilities: DEMO_FACILITIES,
@@ -411,8 +457,9 @@ export const getSiteData = cache(async (): Promise<SiteData & { configured: bool
   }
 
   const sb = createPublicClient();
-  const [settings, rooms, gallery, facilities, rules, notices, menu, testimonials, faqs] = await Promise.all([
+  const [settings, blocks, rooms, gallery, facilities, rules, notices, menu, testimonials, faqs] = await Promise.all([
     sb.from("site_settings").select("*").eq("id", 1).maybeSingle(),
+    sb.from("blocks").select("*").eq("is_published", true).order("sort_order").order("created_at"),
     sb.from("rooms").select("*").eq("is_published", true).order("sort_order").order("created_at"),
     sb.from("gallery_images").select("*").order("sort_order").order("created_at", { ascending: false }),
     sb.from("facilities").select("*").eq("is_published", true).order("sort_order").order("created_at"),
@@ -429,7 +476,7 @@ export const getSiteData = cache(async (): Promise<SiteData & { configured: bool
     sb.from("faqs").select("*").eq("is_published", true).order("sort_order").order("created_at"),
   ]);
 
-  const firstError = [settings, rooms, gallery, facilities, rules, notices, menu, testimonials, faqs].find((r) => r.error)?.error;
+  const firstError = [settings, blocks, rooms, gallery, facilities, rules, notices, menu, testimonials, faqs].find((r) => r.error)?.error;
   if (firstError) {
     if (isBuild) {
       console.warn("[site] Supabase not reachable during build, rendering demo content:", firstError.message);
@@ -441,6 +488,7 @@ export const getSiteData = cache(async (): Promise<SiteData & { configured: bool
   return {
     configured: true,
     settings: { ...DEFAULT_SETTINGS, ...(settings.data ?? {}) },
+    blocks: blocks.data?.length ? blocks.data : DEMO_BLOCKS,
     rooms: rooms.data?.length ? rooms.data : DEMO_ROOMS,
     gallery: gallery.data?.length ? gallery.data : DEMO_GALLERY,
     facilities: facilities.data?.length ? facilities.data : DEMO_FACILITIES,
