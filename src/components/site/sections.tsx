@@ -17,11 +17,88 @@ export function About({ settings }: { settings: SiteSettings }) {
   if (!settings.about_text) return null;
   return (
     <section id="about" className="grid bg-sand lg:grid-cols-2">
-      <div className="img-fallback relative min-h-[320px] lg:min-h-[640px]">
-        {settings.about_image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={settings.about_image} alt={`Inside ${settings.hostel_name}`} className="absolute inset-0 size-full object-cover" loading="lazy" />
-        )}
+      {/* Visual Showcase: 3D Official Logo & Building Sites Collage */}
+      <div className="relative flex flex-col justify-center bg-gradient-to-br from-cream/90 via-sand to-sand-dark/20 p-5 sm:p-8 lg:p-10 xl:p-12">
+        <div className="mx-auto w-full max-w-[560px] space-y-4 sm:space-y-5">
+          {/* Main Card: The 3D Logo & Hoarding Board */}
+          <div className="group relative overflow-hidden rounded-2xl border border-line/80 bg-white shadow-md transition-all duration-300 hover:shadow-xl">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-sand/30">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/the-purple-nest-3d-banner.jpg"
+                alt="The Purple Nest 3D Logo & Official Signboard"
+                className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              {/* Top corner pill badge */}
+              <span className="oswald absolute top-3 right-3 rounded-full bg-brand/90 px-3 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-white shadow-xs backdrop-blur-xs">
+                Official Signboard
+              </span>
+              {/* Bottom location pill */}
+              <span className="oswald absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-medium tracking-wide text-white/90 backdrop-blur-xs">
+                📍 Gwarko Chowk, Lalitpur
+              </span>
+            </div>
+          </div>
+
+          {/* Bottom Grid: Building Sites (Block A & Block B) */}
+          <div className="grid grid-cols-2 gap-4 sm:gap-5">
+            {/* Block A Building */}
+            <div className="group relative overflow-hidden rounded-2xl border border-line/80 bg-white shadow-md transition-all duration-300 hover:shadow-xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-sand/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/block-a.jpg"
+                  alt="Block A Building - Traditional Red Brick Architecture"
+                  className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-2.5 left-3 right-3">
+                  <span className="oswald inline-block rounded-xs bg-brand px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                    Block A
+                  </span>
+                  <p className="oswald mt-0.5 text-xs sm:text-[13px] font-semibold text-white truncate drop-shadow-sm">
+                    Red-Brick Residence
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Block B Building */}
+            <div className="group relative overflow-hidden rounded-2xl border border-line/80 bg-white shadow-md transition-all duration-300 hover:shadow-xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-sand/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/block-b.jpg"
+                  alt="Block B Building - Modern Balcony Residence"
+                  className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-2.5 left-3 right-3">
+                  <span className="oswald inline-block rounded-xs bg-sun px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-ink">
+                    Block B
+                  </span>
+                  <p className="oswald mt-0.5 text-xs sm:text-[13px] font-semibold text-white truncate drop-shadow-sm">
+                    Sunny Balconies
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating Info Strip */}
+          <div className="flex items-center justify-between rounded-xl border border-line/60 bg-white/95 px-4 py-2.5 shadow-xs backdrop-blur-xs">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-leaf animate-pulse" />
+              <span className="oswald text-[11px] font-semibold uppercase tracking-wider text-ink">
+                3 Dedicated Blocks • Sinpa Marg, Gwarko
+              </span>
+            </div>
+            <span className="oswald text-[11px] font-medium text-muted uppercase tracking-wider">A, B & C</span>
+          </div>
+        </div>
       </div>
       <div className="flex items-center px-5 py-16 sm:px-12 lg:px-20 lg:py-24">
         <div className="max-w-[520px]">

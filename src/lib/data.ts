@@ -36,7 +36,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   about_title: "Namaste!",
   about_text:
     "The Purple Nest Hostel has been designed to provide ambitious students and working professionals with a peaceful, safe, and vibrant home away from home at Sinpa Marg, Gwarko, Lalitpur.\n\nSpread across three dedicated residential blocks — Block A, Block B, and Block C — our hostel offers tailored room configurations, attached bathrooms, dedicated study halls, and balcony spaces. Our Gwarko location offers unmatched accessibility right off the Ring Road, close to major colleges, hospitals, and transit hubs across Kathmandu Valley.\n\nOur premises feature 24/7 CCTV surveillance, biometric security, dedicated in-house supervision, and daily housekeeping. Fresh, hygienic meals prepared in our modern kitchen ensure residents stay energized and healthy throughout their journey.",
-  about_image: "/images/purple-nest-hoarding-16-9.jpg",
+  about_image: "/images/about-building-sites-collage.jpg",
   established_year: 2015,
   phone: "+977 976-1158651",
   phone_alt: null,
