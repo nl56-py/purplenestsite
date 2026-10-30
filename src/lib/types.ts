@@ -1,4 +1,9 @@
-export type HeroSlide = { image: string; title: string; subtitle: string };
+export type HeroSlide = {
+  image: string;
+  desktop_image?: string;
+  title: string;
+  subtitle: string;
+};
 
 export type SiteSettings = {
   id: number;

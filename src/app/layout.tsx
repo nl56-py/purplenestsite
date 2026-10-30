@@ -39,16 +39,28 @@ export const metadata: Metadata = {
     description: DEFAULT_DESCRIPTION,
     images: [
       {
-        url: "/images/hero-exterior.jpg",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} building at Sinpa Marg, Gwarko, Lalitpur`,
+        alt: `${SITE_NAME} - Official Student Hostel in Gwarko, Lalitpur with 3 Blocks (Block A, B & C)`,
       },
       {
-        url: "/images/hero-room.jpg",
-        width: 1200,
-        height: 800,
-        alt: "Clean student room with study table at The Purple Nest Hostel Gwarko",
+        url: "/images/og-image-square.jpg",
+        width: 600,
+        height: 600,
+        alt: `${SITE_NAME} Official Logo & Admissions`,
+      },
+      {
+        url: "/images/logo.png",
+        width: 512,
+        height: 512,
+        alt: `${SITE_NAME} Logo`,
+      },
+      {
+        url: "/images/block-a.jpg",
+        width: 894,
+        height: 1496,
+        alt: `${SITE_NAME} Block A Building at Sinpa Marg, Gwarko, Lalitpur`,
       },
     ],
   },
@@ -56,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} | Student Hostel in Gwarko, Lalitpur`,
     description: DEFAULT_DESCRIPTION,
-    images: ["/images/hero-exterior.jpg"],
+    images: ["/images/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -72,10 +84,22 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/purple-nest-icon.jpg" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
       { url: "/icon.svg", type: "image/svg+xml" },
     ],
-    apple: "/images/purple-nest-icon.jpg",
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "apple-touch-icon-precomposed",
+        url: "/apple-touch-icon-precomposed.png",
+      },
+    ],
   },
   manifest: "/manifest.webmanifest",
   other: {

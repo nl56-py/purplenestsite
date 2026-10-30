@@ -2,26 +2,16 @@ import type { SiteSettings } from "@/lib/types";
 
 /** Round badge with the hostel's initial, or the uploaded logo. */
 export function LogoMark({ settings, size = 48 }: { settings: SiteSettings; size?: number }) {
-  if (settings.logo_url) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return (
-      <img
-        src={settings.logo_url}
-        alt={settings.hostel_name}
-        style={{ height: size, width: size }}
-        className="rounded-xl object-contain shrink-0 shadow-xs"
-      />
-    );
-  }
-  const letter = settings.hostel_name.trim()[0]?.toUpperCase() ?? "H";
+  const logoSrc = settings.logo_url || "/images/purple-nest-logo.png";
+  
+  // eslint-disable-next-line @next/next/no-img-element
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden className="shrink-0">
-      <circle cx="32" cy="32" r="32" fill="var(--brand)" />
-      <circle cx="32" cy="32" r="23" fill="none" stroke="#fff" strokeWidth="2.5" />
-      <text x="32" y="42" textAnchor="middle" fill="#fff" fontFamily="Sansita, Georgia, serif" fontStyle="italic" fontWeight="800" fontSize="28">
-        {letter}
-      </text>
-    </svg>
+    <img
+      src={logoSrc}
+      alt={settings.hostel_name || "The Purple Nest Hostel"}
+      style={{ height: size, width: size }}
+      className="rounded-xl object-contain shrink-0 drop-shadow-sm bg-white/95 p-1 border border-brand/10"
+    />
   );
 }
 

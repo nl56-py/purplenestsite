@@ -19,10 +19,11 @@ export function generateHostelSchema(
   testimonials: Testimonial[] = []
 ) {
   const images = [
-    absoluteUrl("/images/hero-exterior.jpg"),
-    absoluteUrl("/images/hero-room.jpg"),
-    absoluteUrl("/images/hero-rooftop.jpg"),
+    absoluteUrl("/images/hero-hoarding-16-9-desktop.jpg"),
+    absoluteUrl("/images/block-a.jpg"),
+    absoluteUrl("/images/block-b.jpg"),
     absoluteUrl("/images/purple-nest-3d.jpg"),
+    absoluteUrl("/images/hero-rooftop.jpg"),
   ];
 
   const sameAs = [
@@ -114,7 +115,7 @@ export function generateHostelSchema(
         url: SITE_URL,
         logo: {
           "@type": "ImageObject",
-          url: absoluteUrl(settings.logo_url || "/images/purple-nest-icon.jpg"),
+          url: absoluteUrl(settings.logo_url || "/images/purple-nest-logo.png"),
           caption: settings.hostel_name || SITE_NAME,
         },
         image: images,
@@ -300,7 +301,7 @@ export function generateNoticeSchema(notice: Notice) {
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/images/purple-nest-icon.jpg"),
+        url: absoluteUrl("/images/purple-nest-logo.png"),
       },
     },
     author: {

@@ -15,7 +15,7 @@ export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
-  const title = `${settings.hostel_name} | Best Student Hostel in Lalitpur, Kathmandu`;
+  const title = `${settings.hostel_name} | Best Student Hostel in Gwarko, Lalitpur (3 Blocks)`;
   const description = settings.meta_description || DEFAULT_DESCRIPTION;
 
   return {
@@ -32,10 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       images: [
         {
-          url: "/images/hero-exterior.jpg",
+          url: "/images/og-image.jpg",
           width: 1200,
           height: 630,
-          alt: `${settings.hostel_name} Student Hostel Kathmandu`,
+          alt: `${settings.hostel_name} Student Hostel Kathmandu with 3 Blocks`,
+        },
+        {
+          url: "/images/og-image-square.jpg",
+          width: 600,
+          height: 600,
+          alt: `${settings.hostel_name} Official Logo`,
+        },
+        {
+          url: "/images/logo.png",
+          width: 512,
+          height: 512,
+          alt: `${settings.hostel_name} Logo`,
         },
       ],
     },
@@ -43,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/hero-exterior.jpg"],
+      images: ["/images/og-image.jpg"],
     },
   };
 }

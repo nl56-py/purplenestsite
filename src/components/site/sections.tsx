@@ -28,7 +28,7 @@ export function About({ settings }: { settings: SiteSettings }) {
           <div className="flex flex-wrap items-start justify-between gap-8">
             <div>
               <h2 className="display text-[clamp(3.4rem,6vw,4.6rem)] text-brand">{settings.about_title || "Namaste!"}</h2>
-              <p className="label-caps mt-4 text-muted">welcome there!</p>
+              <p className="label-caps mt-4 text-muted">3 residential blocks in gwarko, lalitpur</p>
             </div>
             {settings.established_year && (
               <div className="flex flex-col items-center gap-3">
@@ -48,17 +48,25 @@ export function About({ settings }: { settings: SiteSettings }) {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-4 border-t border-line/60 pt-6">
             <div className="flex items-center gap-3">
-              <span className="oswald grid size-10 shrink-0 place-items-center rounded-full bg-sun text-[13px] font-bold text-ink">10+</span>
-              <span className="oswald text-[12px] font-medium !tracking-wide text-ink">Years Serving Students</span>
+              <span className="oswald grid size-10 shrink-0 place-items-center rounded-full bg-sun text-[13px] font-bold text-ink">3</span>
+              <span className="oswald text-[12px] font-medium !tracking-wide text-ink">Blocks (A, B, C)</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="oswald grid size-10 shrink-0 place-items-center rounded-full bg-sun text-[13px] font-bold text-ink">📍</span>
+              <span className="oswald text-[12px] font-medium !tracking-wide text-ink">Gwarko, Lalitpur Hub</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="oswald grid size-10 shrink-0 place-items-center rounded-full bg-sun text-[13px] font-bold text-ink">4x</span>
               <span className="oswald text-[12px] font-medium !tracking-wide text-ink">Fresh Meals Daily</span>
             </div>
+            <div className="flex items-center gap-3">
+              <span className="oswald grid size-10 shrink-0 place-items-center rounded-full bg-sun text-[13px] font-bold text-ink">10+</span>
+              <span className="oswald text-[12px] font-medium !tracking-wide text-ink">Years Serving Students</span>
+            </div>
           </div>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#rooms" className="tbtn tbtn-dark px-12">View rooms</a>
-            <a href="#contact" className="tbtn tbtn-sun px-12">Contact us</a>
+            <a href="#rooms" className="tbtn tbtn-dark px-8 sm:px-12">View 3 blocks & rooms</a>
+            <a href="#contact" className="tbtn tbtn-sun px-8 sm:px-12">Visit us in Gwarko</a>
           </div>
         </div>
       </div>
@@ -72,8 +80,43 @@ export function Rooms({ rooms, blocks, settings }: { rooms: Room[]; blocks?: Blo
   return (
     <section id="rooms" className="py-24 md:py-28">
       <div className={WRAP}>
-        <SectionHeading title="Rooms & Beds" label="choose your block and bed" />
-        {settings.price_note && <p className="mx-auto mt-5 max-w-xl text-center">{settings.price_note}</p>}
+        <SectionHeading title="Hostel Blocks & Rooms" label="3 residential blocks in gwarko, lalitpur" />
+        
+        {/* 3 Block Highlights Strip */}
+        <div className="mt-10 mb-12 grid gap-5 sm:grid-cols-3">
+          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
+            <div className="flex items-center justify-between">
+              <span className="oswald rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase text-white">Block A</span>
+              <span className="text-xs font-semibold text-muted">Main Residential</span>
+            </div>
+            <h4 className="oswald mt-3 text-lg font-bold text-ink">Private & Attached Rooms</h4>
+            <p className="mt-1.5 text-xs text-muted leading-relaxed">
+              Single and double seater rooms with attached bathrooms, study desks, and quiet academic environment.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
+            <div className="flex items-center justify-between">
+              <span className="oswald rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase text-ink">Block B</span>
+              <span className="text-xs font-semibold text-muted">Study Focus</span>
+            </div>
+            <h4 className="oswald mt-3 text-lg font-bold text-ink">Sunny Balcony Rooms</h4>
+            <p className="mt-1.5 text-xs text-muted leading-relaxed">
+              Spacious triple seater rooms with sunny balconies, personal wardrobes, and direct study hall access.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-line bg-cream/70 p-6 shadow-xs">
+            <div className="flex items-center justify-between">
+              <span className="oswald rounded-full bg-leaf px-3 py-1 text-xs font-bold uppercase text-white">Block C</span>
+              <span className="text-xs font-semibold text-muted">Value & Community</span>
+            </div>
+            <h4 className="oswald mt-3 text-lg font-bold text-ink">Group 4-Seater Rooms</h4>
+            <p className="mt-1.5 text-xs text-muted leading-relaxed">
+              Bright, well-ventilated 4-bed rooms with personal lockable wardrobes, study tables, and affordable fees.
+            </p>
+          </div>
+        </div>
+
+        {settings.price_note && <p className="mx-auto max-w-xl text-center text-sm text-muted">{settings.price_note}</p>}
         <RoomsCarouselBlockView rooms={rooms} blocks={blocks} settings={settings} />
       </div>
     </section>
@@ -86,7 +129,7 @@ export function Facilities({ facilities }: { facilities: Facility[] }) {
   return (
     <section id="facilities" className="py-24 md:py-28">
       <div className={WRAP}>
-        <SectionHeading title="Facilities" label="what we offer" />
+        <SectionHeading title="Hostel Facilities" label="amenities across all 3 blocks in gwarko" />
         <ul className="mt-16 flex flex-wrap justify-center gap-y-12">
           {facilities.map((f) => (
             <li key={f.id} className="group flex w-1/2 flex-col items-center px-3 text-center sm:w-1/3 lg:w-1/4" title={f.description || undefined}>
@@ -254,7 +297,16 @@ export function Faqs({ faqs }: { faqs: Faq[] }) {
 /* --------------------------------------------------------------- Contacts */
 export function Contact({ settings, rooms }: { settings: SiteSettings; rooms: Room[] }) {
   const items = [
-    settings.address && { Icon: MapPin, label: "Address", value: <span>{settings.address}</span> },
+    settings.address && {
+      Icon: MapPin,
+      label: "Address & Location",
+      value: (
+        <div>
+          <span className="font-semibold text-ink">{settings.address}</span>
+          <p className="mt-1 text-xs text-muted">Centrally located at Sinpa Marg, Gwarko (2 mins walk from Gwarko Chowk & Ring Road, Lalitpur)</p>
+        </div>
+      ),
+    },
     settings.phone && {
       Icon: Phone,
       label: "Phone",
@@ -278,7 +330,7 @@ export function Contact({ settings, rooms }: { settings: SiteSettings; rooms: Ro
     <section id="contact" className="pt-24 md:pt-28">
       <div className={`${WRAP} grid gap-14 lg:grid-cols-[1fr_1.6fr]`}>
         <div>
-          <SectionHeading title="Contacts" label="come visit us" center={false} />
+          <SectionHeading title="Contacts" label="come visit us in gwarko" center={false} />
           <ul className="mt-12 space-y-8">
             {items.map(({ Icon, label, value }) => (
               <li key={label} className="flex gap-4">
@@ -293,7 +345,7 @@ export function Contact({ settings, rooms }: { settings: SiteSettings; rooms: Ro
         </div>
         <div id="enquiry" className="scroll-mt-28 bg-sand p-7 sm:p-12">
           <h3 className="display text-[2.4rem] text-ink">Reserve a bed</h3>
-          <p className="mt-2">Send us your details and we will call you back within a day.</p>
+          <p className="mt-2">Choose your preferred room across Block A, B, or C. Send us your details and we will call you back within a day.</p>
           <EnquiryForm rooms={rooms} />
         </div>
       </div>

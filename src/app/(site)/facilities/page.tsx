@@ -25,13 +25,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url,
       type: "website",
-      images: ["/images/hero-exterior.jpg"],
+      images: ["/images/og-image.jpg"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/hero-exterior.jpg"],
+      images: ["/images/og-image.jpg"],
     },
   };
 }
@@ -69,9 +69,9 @@ export default async function FacilitiesIndexPage() {
       <JsonLd id="facilities-list-schema" data={facilitiesListSchema} />
 
       <div className="mx-auto max-w-[1200px] px-5">
-        <SectionHeading title="Our Facilities" label="everything you need to study & live easy" />
+        <SectionHeading title="Our Facilities" label="amenities across all 3 blocks in gwarko, lalitpur" />
         <p className="mx-auto mt-6 max-w-2xl text-center text-[16px] text-muted font-serif leading-relaxed">
-          Designed specifically for college students, medical/engineering scholars, and exam aspirants in Kathmandu. Every facility is maintained daily to the highest standards.
+          Designed specifically for college scholars and exam aspirants living across our three blocks at Sinpa Marg, Gwarko, Lalitpur. Every facility is maintained daily to the highest standards.
         </p>
 
         {/* Facilities Grid */}

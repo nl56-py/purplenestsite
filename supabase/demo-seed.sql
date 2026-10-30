@@ -15,7 +15,7 @@ delete from public.faqs;
 update public.site_settings set
   hostel_name   = 'The Purple Nest',
   hostel_type   = 'Student Hostel',
-  tagline       = 'Safe, clean and homely stay for students in the heart of Kathmandu.',
+  tagline       = 'Safe, clean & homely stay for students across 3 modern blocks in Gwarko, Lalitpur.',
   hero_slides   = '[
     {"image":"/images/hero-exterior.jpg","title":"Study hard, live easy","subtitle":"A safe, friendly home for students and professionals — located in Gwarko, Lalitpur."},
     {"image":"/images/hero-room.jpg","title":"Homely Comfort in Kathmandu","subtitle":"Spacious, well-ventilated rooms with private study tables, daily cleaning and 24/7 solar hot water."},
@@ -47,7 +47,7 @@ Our premises feature 24/7 CCTV surveillance, biometric security, dedicated in-ho
   theme_color   = '#43106c',
   secondary_color = '#8b5cf6',
   price_note    = 'Fees include 4 daily meals, high-speed Wi-Fi, electricity, solar hot water, and laundry.',
-  meta_description = 'The Purple Nest Hostel, Kathmandu — safe, clean rooms with homely meals, Wi-Fi and 24/7 security. Admissions open.',
+  meta_description = 'The Purple Nest Hostel, Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley) — 3 modern blocks with single, double, triple & 4-seater rooms, 4 hygienic meals daily, Wi-Fi and 24/7 security. Admissions open.',
   updated_at    = now()
 where id = 1;
 

@@ -24,13 +24,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url,
       type: "website",
-      images: ["/images/hero-exterior.jpg"],
+      images: ["/images/og-image.jpg"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/hero-exterior.jpg"],
+      images: ["/images/og-image.jpg"],
     },
   };
 }
@@ -47,7 +47,7 @@ export default async function AboutPage() {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     name: `About ${settings.hostel_name}`,
-    description: `Story, mission and academic living standards at ${settings.hostel_name} in Pilachhen, Lalitpur.`,
+    description: `Story, mission and academic living standards across 3 dedicated blocks at ${settings.hostel_name} in Sinpa Marg, Gwarko, Lalitpur.`,
     url: `${SITE_URL}/about`,
     mainEntity: {
       "@id": `${SITE_URL}/#hostel`,
@@ -60,8 +60,8 @@ export default async function AboutPage() {
       <JsonLd id="about-page-schema" data={aboutSchema} />
       <PageBanner
         title={`About ${settings.hostel_name}`}
-        label="your second home in kathmandu"
-        description="Providing ambitious students from across Nepal with a safe, distraction-free, and healthy living environment since 2015."
+        label="3 dedicated blocks in gwarko, lalitpur"
+        description="Spread across 3 dedicated residential blocks (Block A, B & C) at Sinpa Marg, Gwarko, Lalitpur — providing students with a safe, distraction-free, and healthy living environment since 2015."
       />
 
       {/* Main Story & Philosophy */}
@@ -89,12 +89,12 @@ export default async function AboutPage() {
               {/* Quick stats pills */}
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-line pt-8">
                 <div>
-                  <span className="display text-3xl text-brand">{settings.established_year || 2015}</span>
-                  <p className="text-xs text-muted uppercase tracking-wider mt-1">Established</p>
+                  <span className="display text-3xl text-brand">3</span>
+                  <p className="text-xs text-muted uppercase tracking-wider mt-1">Blocks (A, B, C)</p>
                 </div>
                 <div>
-                  <span className="display text-3xl text-sun-dark">500+</span>
-                  <p className="text-xs text-muted uppercase tracking-wider mt-1">Happy Alumni</p>
+                  <span className="display text-3xl text-sun-dark">{settings.established_year || 2015}</span>
+                  <p className="text-xs text-muted uppercase tracking-wider mt-1">Established</p>
                 </div>
                 <div>
                   <span className="display text-3xl text-leaf">24/7</span>
@@ -181,9 +181,9 @@ export default async function AboutPage() {
               <div className="grid size-12 place-items-center rounded-xl bg-amber-500/10 text-amber-700">
                 <MapPin className="size-6" />
               </div>
-              <h3 className="oswald mt-5 text-[19px] font-medium text-ink">Prime Lalitpur Location</h3>
+              <h3 className="oswald mt-5 text-[19px] font-medium text-ink">Prime Gwarko Location & 3 Blocks</h3>
               <p className="mt-2 text-sm text-muted leading-relaxed">
-                Located at Sinpa Marg, Gwarko, Lalitpur, with quick access to Ring Road, Gwarko Chowk, Patan, Kathmandu Valley colleges, and daily conveniences.
+                Located at Sinpa Marg, Gwarko, Lalitpur (near Gwarko Chowk & Ring Road). Our campus spans 3 specialized blocks (Block A, B & C) designed for security, comfort, and top academic performance.
               </p>
             </div>
           </div>

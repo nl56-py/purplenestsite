@@ -55,8 +55,8 @@ export default async function RoomsPage() {
       <JsonLd id="rooms-itemlist-schema" data={roomsSchema} />
       <PageBanner
         title="Hostel Blocks & Rooms"
-        label="Block A • Block B • Block C • transparent fees"
-        description="Spacious student rooms designed with individual wooden beds, comfortable mattresses, personal wardrobes, dedicated study tables, and daily housekeeping."
+        label="3 Blocks: Block A • Block B • Block C • Gwarko, Lalitpur"
+        description="Spacious student rooms organized across 3 dedicated residential blocks (Block A, Block B, and Block C) at Sinpa Marg, Gwarko, Lalitpur with transparent all-inclusive fees."
       />
 
       {/* Live availability notice banner */}

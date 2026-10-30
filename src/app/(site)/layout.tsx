@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteData();
   const title = `${settings.hostel_name} | ${settings.hostel_type}${settings.address ? `, ${settings.address.split(",")[0]}` : ""}`;
   const description = settings.meta_description || settings.tagline;
-  const image = settings.hero_slides[0]?.image || "/images/hero-exterior.jpg";
+  const ogImage = "/images/og-image.jpg";
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -32,10 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_NP",
       images: [
         {
-          url: image,
+          url: ogImage,
           width: 1200,
           height: 630,
-          alt: `${settings.hostel_name} student hostel exterior`,
+          alt: `${settings.hostel_name} student hostel with 3 blocks in Gwarko, Lalitpur`,
+        },
+        {
+          url: "/images/og-image-square.jpg",
+          width: 600,
+          height: 600,
+          alt: `${settings.hostel_name} Logo & Admissions`,
+        },
+        {
+          url: settings.logo_url || "/images/logo.png",
+          width: 512,
+          height: 512,
+          alt: `${settings.hostel_name} Logo`,
         },
       ],
     },
@@ -43,9 +55,18 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [ogImage],
     },
-    icons: settings.logo_url ? { icon: settings.logo_url } : undefined,
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+        { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+        { url: "/icon.png", type: "image/png", sizes: "512x512" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    },
   };
 }
 
