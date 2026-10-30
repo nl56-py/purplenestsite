@@ -12,7 +12,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   logo_url: "/images/purple-nest-logo.png",
   hero_slides: [
     {
-      image: "/images/purple-nest-3d.jpg",
+      image: "/images/hero-hoarding-mobile.jpg",
       desktop_image: "/images/hero-hoarding-16-9-desktop.jpg",
       title: "The Purple Nest",
       subtitle: "Premier student accommodation across dedicated residential blocks (Block A, B & C) — situated at Sinpa Marg, Gwarko, Lalitpur with quick Ring Road access.",

@@ -27,7 +27,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
   return (
     <section id="top" aria-roledescription="carousel" aria-label="Highlights">
       <div
-        className="relative h-[calc(100svh-104px)] min-h-[560px] max-h-[860px] overflow-hidden bg-ink"
+        className="relative h-[calc(100svh-104px)] min-h-[560px] max-h-[860px] overflow-hidden bg-[#ececec]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -50,40 +50,38 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
             ) : (
               <div className="size-full bg-[radial-gradient(circle_at_75%_30%,var(--color-brand)_0%,var(--color-ink)_65%)]" />
             )}
-            {/* Lighter, clear gradient so background imagery stays visible while maintaining text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-black/5" />
           </div>
         ))}
 
-        <div className="relative mx-auto flex h-full max-w-[1200px] items-center px-5 py-8">
+        <div className="relative mx-auto flex h-full max-w-[1200px] items-start sm:items-center px-5 pt-6 pb-8 sm:py-8">
           {slides.map(
             (s, i) =>
               i === index && (
                 <div
                   key={i}
-                  className="max-w-2xl rounded-3xl border border-white/20 bg-black/50 p-6 backdrop-blur-md shadow-2xl sm:p-8 md:p-9 text-white animate-fade-up"
+                  className="max-w-2xl py-4 animate-fade-up"
                 >
                   {/* Location & 3 Blocks Badge */}
-                  <div className="mb-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-sun/60 bg-black/60 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm">
-                    <span className="flex items-center gap-1.5 text-sun">
-                      <MapPin className="size-3.5 shrink-0" />
+                  <div className="mb-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-brand/30 bg-white/95 px-4 py-1.5 text-xs font-bold text-brand shadow-sm">
+                    <span className="flex items-center gap-1.5 text-brand">
+                      <MapPin className="size-3.5 shrink-0 text-brand" />
                       <span>Sinpa Marg, Gwarko, Lalitpur</span>
                     </span>
-                    <span className="text-white/40">•</span>
-                    <span className="flex items-center gap-1.5 text-amber-300">
-                      <Building2 className="size-3.5 shrink-0" />
+                    <span className="text-brand/40">•</span>
+                    <span className="flex items-center gap-1.5 text-brand">
+                      <Building2 className="size-3.5 shrink-0 text-brand" />
                       <span>3 Dedicated Blocks (A, B, C)</span>
                     </span>
                   </div>
 
-                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)]">
+                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] text-brand [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_0_15px_rgba(255,255,255,0.7)]">
                     {s.title}
                   </h1>
 
                   {cheapest > 0 && (
-                    <p className="label-caps mt-4 flex flex-wrap items-baseline gap-x-3 text-[13px] !tracking-[0.32em] text-white/90">
+                    <p className="label-caps mt-4 flex flex-wrap items-baseline gap-x-3 text-[13px] !tracking-[0.32em] text-brand/85 [text-shadow:0_1px_2px_rgba(255,255,255,0.9)]">
                       from{" "}
-                      <span className="oswald text-[2.6rem] sm:text-[3rem] font-bold normal-case leading-none !tracking-normal text-sun drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                      <span className="oswald text-[2.6rem] sm:text-[3.2rem] font-bold normal-case leading-none !tracking-normal text-brand drop-shadow-[0_2px_10px_rgba(255,255,255,0.85)]">
                         {formatRs(cheapest)}
                       </span>{" "}
                       a month
@@ -91,33 +89,33 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                   )}
 
                   {s.subtitle && (
-                    <p className="mt-3.5 text-[15.5px] sm:text-[17px] leading-relaxed text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                    <p className="mt-3.5 text-[15.5px] sm:text-[17px] font-medium leading-relaxed text-ink [text-shadow:0_1px_2px_rgba(255,255,255,0.95)]">
                       {s.subtitle}
                     </p>
                   )}
 
                   {/* Quick highlights pill strip */}
-                  <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-white">
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
-                      <Building2 className="size-3.5 text-sun" />
+                  <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
+                      <Building2 className="size-3.5 text-brand" />
                       <span>Block A • Block B • Block C</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
-                      <MapPin className="size-3.5 text-sun" />
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
+                      <MapPin className="size-3.5 text-brand" />
                       <span>Near Gwarko Chowk</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
                       <span>🍲 4 Fresh Meals Daily</span>
                     </span>
                   </div>
 
                   <div className="mt-7 flex flex-wrap items-center gap-3.5">
-                    <a href="#rooms" className="tbtn tbtn-sun shadow-lg">
+                    <a href="#rooms" className="tbtn tbtn-sun shadow-lg font-bold text-brand">
                       View 3 Blocks & Rooms
                     </a>
                     <a
                       href="#contact"
-                      className="tbtn border-2 border-white/80 bg-white/15 text-white hover:bg-white hover:text-ink font-semibold backdrop-blur-xs shadow-md transition"
+                      className="tbtn border-2 border-brand bg-white/95 text-brand hover:bg-brand hover:text-white font-bold shadow-md transition"
                     >
                       Visit Us in Gwarko
                     </a>
@@ -133,7 +131,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
               type="button"
               onClick={() => go(-1)}
               aria-label="Previous slide"
-              className="absolute left-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-white/50 bg-black/30 text-white backdrop-blur-xs transition hover:border-sun hover:bg-sun hover:text-ink md:grid"
+              className="absolute left-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-brand/40 bg-white/90 text-brand shadow-md transition hover:border-brand hover:bg-brand hover:text-white md:grid"
             >
               <ChevronLeft className="size-6" />
             </button>
@@ -141,7 +139,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
               type="button"
               onClick={() => go(1)}
               aria-label="Next slide"
-              className="absolute right-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-white/50 bg-black/30 text-white backdrop-blur-xs transition hover:border-sun hover:bg-sun hover:text-ink md:grid"
+              className="absolute right-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-brand/40 bg-white/90 text-brand shadow-md transition hover:border-brand hover:bg-brand hover:text-white md:grid"
             >
               <ChevronRight className="size-6" />
             </button>
@@ -154,7 +152,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                   aria-current={i === index}
                   onClick={() => setIndex(i)}
                   className={`size-3.5 rounded-full border-2 transition ${
-                    i === index ? "border-sun bg-sun scale-110" : "border-white bg-transparent hover:bg-white"
+                    i === index ? "border-brand bg-brand scale-110" : "border-brand/50 bg-white/80 hover:bg-brand/30"
                   }`}
                 />
               ))}
