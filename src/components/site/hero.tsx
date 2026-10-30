@@ -27,7 +27,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
   return (
     <section id="top" aria-roledescription="carousel" aria-label="Highlights">
       <div
-        className="relative h-[calc(100svh-104px)] min-h-[540px] max-h-[860px] overflow-hidden bg-ink"
+        className="relative h-[calc(100svh-104px)] min-h-[560px] max-h-[860px] overflow-hidden bg-ink"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -42,7 +42,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                 <img
                   src={s.image}
                   alt={s.title || ""}
-                  className={`size-full object-cover transition-transform duration-[8000ms] ease-out ${i === index ? "scale-[1.06]" : "scale-100"}`}
+                  className={`size-full object-cover transition-transform duration-[8000ms] ease-out ${i === index ? "scale-[1.05]" : "scale-100"}`}
                   fetchPriority={i === 0 ? "high" : "low"}
                   loading={i === 0 ? "eager" : "lazy"}
                 />
@@ -50,56 +50,75 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
             ) : (
               <div className="size-full bg-[radial-gradient(circle_at_75%_30%,var(--color-brand)_0%,var(--color-ink)_65%)]" />
             )}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/10" />
+            {/* Lighter, clear gradient so background imagery stays visible while maintaining text contrast */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-black/5" />
           </div>
         ))}
 
-        <div className="relative mx-auto flex h-full max-w-[1200px] items-center px-5">
+        <div className="relative mx-auto flex h-full max-w-[1200px] items-center px-5 py-8">
           {slides.map(
             (s, i) =>
               i === index && (
-                <div key={i} className="max-w-3xl text-white">
+                <div
+                  key={i}
+                  className="max-w-2xl rounded-3xl border border-white/20 bg-black/50 p-6 backdrop-blur-md shadow-2xl sm:p-8 md:p-9 text-white animate-fade-up"
+                >
                   {/* Location & 3 Blocks Badge */}
-                  <div className="mb-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3.5 py-1.5 backdrop-blur-md animate-fade-up text-xs font-semibold text-white/90">
+                  <div className="mb-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-sun/60 bg-black/60 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm">
                     <span className="flex items-center gap-1.5 text-sun">
                       <MapPin className="size-3.5 shrink-0" />
                       <span>Sinpa Marg, Gwarko, Lalitpur</span>
                     </span>
                     <span className="text-white/40">•</span>
-                    <span className="flex items-center gap-1.5 text-amber-200">
+                    <span className="flex items-center gap-1.5 text-amber-300">
                       <Building2 className="size-3.5 shrink-0" />
                       <span>3 Dedicated Blocks (A, B, C)</span>
                     </span>
                   </div>
 
-                  <h1 className="display animate-fade-up text-[clamp(3.2rem,9vw,6.6rem)] drop-shadow-[0_4px_18px_rgba(0,0,0,0.25)]">{s.title}</h1>
+                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)]">
+                    {s.title}
+                  </h1>
+
                   {cheapest > 0 && (
-                    <p className="label-caps mt-5 flex animate-fade-up flex-wrap items-baseline gap-x-3 text-[13px] !tracking-[0.35em] text-white [animation-delay:150ms]">
-                      from <span className="oswald text-[2.6rem] normal-case leading-none !tracking-normal text-brand">{formatRs(cheapest)}</span> a month
+                    <p className="label-caps mt-4 flex flex-wrap items-baseline gap-x-3 text-[13px] !tracking-[0.32em] text-white/90">
+                      from{" "}
+                      <span className="oswald text-[2.6rem] sm:text-[3rem] font-bold normal-case leading-none !tracking-normal text-sun drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                        {formatRs(cheapest)}
+                      </span>{" "}
+                      a month
                     </p>
                   )}
-                  {s.subtitle && <p className="mt-4 max-w-xl animate-fade-up text-[17px] leading-relaxed text-white/85 [animation-delay:250ms]">{s.subtitle}</p>}
+
+                  {s.subtitle && (
+                    <p className="mt-3.5 text-[15.5px] sm:text-[17px] leading-relaxed text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                      {s.subtitle}
+                    </p>
+                  )}
 
                   {/* Quick highlights pill strip */}
-                  <div className="mt-6 flex flex-wrap items-center gap-2.5 animate-fade-up text-xs text-white/85 [animation-delay:300ms]">
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 backdrop-blur-xs border border-white/15">
+                  <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-white">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
                       <Building2 className="size-3.5 text-sun" />
                       <span>Block A • Block B • Block C</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 backdrop-blur-xs border border-white/15">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
                       <MapPin className="size-3.5 text-sun" />
                       <span>Near Gwarko Chowk</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 backdrop-blur-xs border border-white/15">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/25 bg-white/15 px-3 py-1.5 font-medium shadow-xs backdrop-blur-xs">
                       <span>🍲 4 Fresh Meals Daily</span>
                     </span>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-4 animate-fade-up [animation-delay:350ms]">
-                    <a href="#rooms" className="tbtn tbtn-sun">
+                  <div className="mt-7 flex flex-wrap items-center gap-3.5">
+                    <a href="#rooms" className="tbtn tbtn-sun shadow-lg">
                       View 3 Blocks & Rooms
                     </a>
-                    <a href="#contact" className="tbtn tbtn-ghost border-white/40 text-white hover:bg-white hover:text-ink">
+                    <a
+                      href="#contact"
+                      className="tbtn border-2 border-white/80 bg-white/15 text-white hover:bg-white hover:text-ink font-semibold backdrop-blur-xs shadow-md transition"
+                    >
                       Visit Us in Gwarko
                     </a>
                   </div>
@@ -110,13 +129,23 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
 
         {slides.length > 1 && (
           <>
-            <button type="button" onClick={() => go(-1)} aria-label="Previous slide" className="absolute left-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center border-2 border-white/40 text-white transition hover:border-sun hover:bg-sun hover:text-ink md:grid">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous slide"
+              className="absolute left-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-white/50 bg-black/30 text-white backdrop-blur-xs transition hover:border-sun hover:bg-sun hover:text-ink md:grid"
+            >
               <ChevronLeft className="size-6" />
             </button>
-            <button type="button" onClick={() => go(1)} aria-label="Next slide" className="absolute right-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center border-2 border-white/40 text-white transition hover:border-sun hover:bg-sun hover:text-ink md:grid">
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next slide"
+              className="absolute right-5 top-1/2 hidden size-14 -translate-y-1/2 place-items-center rounded-full border-2 border-white/50 bg-black/30 text-white backdrop-blur-xs transition hover:border-sun hover:bg-sun hover:text-ink md:grid"
+            >
               <ChevronRight className="size-6" />
             </button>
-            <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-3">
+            <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-3">
               {slides.map((_, i) => (
                 <button
                   key={i}
@@ -124,7 +153,9 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                   aria-label={`Go to slide ${i + 1}`}
                   aria-current={i === index}
                   onClick={() => setIndex(i)}
-                  className={`size-3.5 rounded-full border-2 transition ${i === index ? "border-sun bg-sun" : "border-white bg-transparent hover:bg-white"}`}
+                  className={`size-3.5 rounded-full border-2 transition ${
+                    i === index ? "border-sun bg-sun scale-110" : "border-white bg-transparent hover:bg-white"
+                  }`}
                 />
               ))}
             </div>
