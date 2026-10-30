@@ -4,7 +4,6 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { FloatingContact } from "@/components/site/floating-contact";
 import { AvailabilityBanner } from "@/components/site/availability-banner";
-import { DemoBanner } from "@/components/site/demo-banner";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateHostelSchema } from "@/lib/seo-schema";
 import { SITE_URL } from "@/lib/site-config";
@@ -61,7 +60,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   return (
     <div style={{ ["--brand" as string]: brand, ["--leaf" as string]: leaf }} className="site flex min-h-screen flex-col">
       <JsonLd id="hostel-main-schema" data={hostelSchema} />
-      <DemoBanner />
       <SiteHeader settings={settings} hasNotices={notices.length > 0} />
       <main className="flex-1">{children}</main>
       <SiteFooter settings={settings} />

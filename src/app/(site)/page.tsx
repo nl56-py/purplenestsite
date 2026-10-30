@@ -55,12 +55,6 @@ export default async function HomePage() {
   return (
     <>
       {faqSchema && <JsonLd id="homepage-faqs-schema" data={faqSchema} />}
-      {!data.configured && (
-        <div className="flex flex-wrap items-center justify-center gap-2 border-b border-amber-200 bg-amber-50/90 px-6 py-2.5 text-center text-xs text-amber-900">
-          <span className="rounded bg-amber-200/90 px-2 py-0.5 font-bold uppercase tracking-wider text-[10px]">Demo Mode</span>
-          <span>Displaying authentic Nepali hostel showcase content. Connect Supabase in <code className="font-mono font-semibold">.env.local</code> to activate live CMS database.</span>
-        </div>
-      )}
       <Hero settings={data.settings} rooms={data.rooms} />
       <About settings={data.settings} />
       <Rooms rooms={data.rooms} blocks={data.blocks} settings={data.settings} />

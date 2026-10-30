@@ -7,10 +7,10 @@ export const SITE_URL = "https://thepurplenesthostel.com";
 export const SITE_DOMAIN = "thepurplenesthostel.com";
 export const SITE_NAME = "The Purple Nest Hostel";
 export const SITE_LEGAL_NAME = "The Purple Nest Hostel Pvt. Ltd.";
-export const SITE_TAGLINE = "Safe, clean & homely stay for students in Gwarko, Lalitpur (Kathmandu Valley).";
+export const SITE_TAGLINE = "Safe, clean & homely stay for students across 3 modern blocks in Gwarko, Lalitpur.";
 
 export const DEFAULT_DESCRIPTION =
-  "The Purple Nest Hostel at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley) offers premium student accommodation with single, double, triple & 4-seater rooms, 4 hygienic meals daily, high-speed Wi-Fi, 24/7 solar hot water, quiet study hall, and biometric CCTV security. Admissions open.";
+  "The Purple Nest Hostel at Sinpa Marg, Gwarko, Lalitpur (Kathmandu Valley) features 3 dedicated residential blocks (Block A, B & C) with single, double, triple & 4-seater rooms, 4 hygienic meals daily, high-speed Wi-Fi, 24/7 solar hot water, quiet study hall, and biometric CCTV security. Admissions open.";
 
 export const SITE_GEO = {
   region: "NP-P", // Bagmati Province, Nepal
@@ -50,6 +50,8 @@ export const SITE_KEYWORDS = [
   "Student Hostel Gwarko",
   "Hostel near Gwarko Chowk",
   "Hostel in Lalitpur",
+  "3 Blocks Hostel Gwarko",
+  "Block A Block B Block C hostel",
   "Hostel in Kathmandu Valley",
   "The Purple Nest Hostel",
   "Purple Nest Hostel",

@@ -101,22 +101,22 @@ export default async function Dashboard() {
         </div>
       </section>
 
-      {/* Demo Showcase Guide Card */}
-      <section className="mt-6 rounded-2xl border border-amber-300/80 bg-gradient-to-br from-amber-50/90 via-orange-50/50 to-white p-5 shadow-xs">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-200/80 pb-3">
+      {/* CMS Quick Controls Guide Card */}
+      <section className="mt-6 rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-50 via-white to-stone-50/50 p-5 shadow-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200/80 pb-3">
           <div className="flex items-center gap-2">
-            <span className="grid size-7 place-items-center rounded-lg bg-amber-500/20 text-amber-900 font-bold text-xs">
+            <span className="grid size-7 place-items-center rounded-lg bg-brand/10 text-brand font-bold text-xs">
               ⚡
             </span>
             <div>
-              <h2 className="text-sm font-extrabold text-stone-900">Demo Showcase: What Can You Edit & Demonstrate?</h2>
+              <h2 className="text-sm font-extrabold text-stone-900">Website CMS Quick Guide: Live Controls</h2>
               <p className="text-xs text-stone-600">Everything on the public website updates dynamically in real time from these tabs.</p>
             </div>
           </div>
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-bold text-amber-900 shadow-xs hover:bg-amber-100/50 transition"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-xs font-bold text-stone-800 shadow-xs hover:bg-stone-100 transition"
           >
             <span>View Live Website</span>
             <ArrowRight className="size-3.5" />
@@ -124,19 +124,19 @@ export default async function Dashboard() {
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-xs">
-          <div className="rounded-xl border border-amber-200/60 bg-white/80 p-3">
+          <div className="rounded-xl border border-stone-200/80 bg-white p-3">
             <p className="font-bold text-stone-900">🛏️ Rooms & Bed Vacancies</p>
             <p className="mt-1 text-muted text-[11px]">Use the + / − steppers below or go to <Link href="/admin/rooms" className="text-brand font-semibold underline">Rooms</Link>. Live bed counters and booking modals change immediately.</p>
           </div>
-          <div className="rounded-xl border border-amber-200/60 bg-white/80 p-3">
+          <div className="rounded-xl border border-stone-200/80 bg-white p-3">
             <p className="font-bold text-stone-900">🍛 7-Day Food Menu</p>
             <p className="mt-1 text-muted text-[11px]">Go to <Link href="/admin/menu" className="text-brand font-semibold underline">Food Menu</Link> to edit breakfast, lunch, snacks, or dinner for all 7 days with auto-highlighted current day.</p>
           </div>
-          <div className="rounded-xl border border-amber-200/60 bg-white/80 p-3">
+          <div className="rounded-xl border border-stone-200/80 bg-white p-3">
             <p className="font-bold text-stone-900">🎨 Colors, Photos & Slides</p>
             <p className="mt-1 text-muted text-[11px]">Go to <Link href="/admin/settings" className="text-brand font-semibold underline">Settings</Link> to change theme color (re-skins whole site), hero slideshow photos, and hostel name/tagline.</p>
           </div>
-          <div className="rounded-xl border border-amber-200/60 bg-white/80 p-3">
+          <div className="rounded-xl border border-stone-200/80 bg-white p-3">
             <p className="font-bold text-stone-900">📢 Popup Announcements</p>
             <p className="mt-1 text-muted text-[11px]">Go to <Link href="/admin/notices" className="text-brand font-semibold underline">Notices</Link> and toggle "Show as popup" to greet visitors with an instant admission alert banner.</p>
           </div>

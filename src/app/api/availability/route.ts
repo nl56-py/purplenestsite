@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createPublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { DEMO_ROOMS, DEFAULT_SETTINGS } from "@/lib/data";
+import { DEFAULT_ROOMS, DEFAULT_SETTINGS } from "@/lib/data";
 import { Client } from "pg";
 
 export const dynamic = "force-dynamic";
@@ -33,7 +33,7 @@ export async function GET() {
       await client.end();
 
       const admission_open = settingsRes.rows[0]?.admission_open ?? true;
-      const rooms = roomsRes.rows.length ? roomsRes.rows : DEMO_ROOMS;
+      const rooms = roomsRes.rows.length ? roomsRes.rows : DEFAULT_ROOMS;
 
       const total_available = rooms.reduce((s: number, r: { available_beds?: number }) => s + Number(r.available_beds || 0), 0);
       const total_beds = rooms.reduce((s: number, r: { total_beds?: number }) => s + Number(r.total_beds || 0), 0);
@@ -83,7 +83,7 @@ export async function GET() {
       ]);
 
       const admission_open = settingsRes.data?.admission_open ?? true;
-      const rooms = roomsRes.data?.length ? roomsRes.data : DEMO_ROOMS;
+      const rooms = roomsRes.data?.length ? roomsRes.data : DEFAULT_ROOMS;
 
       const total_available = rooms.reduce((s, r) => s + Number(r.available_beds || 0), 0);
       const total_beds = rooms.reduce((s, r) => s + Number(r.total_beds || 0), 0);
@@ -115,16 +115,16 @@ export async function GET() {
     }
   }
 
-  // 3. Fallback demo data
-  const total_available = DEMO_ROOMS.reduce((s, r) => s + r.available_beds, 0);
-  const total_beds = DEMO_ROOMS.reduce((s, r) => s + r.total_beds, 0);
+  // 3. Fallback default data
+  const total_available = DEFAULT_ROOMS.reduce((s, r) => s + r.available_beds, 0);
+  const total_beds = DEFAULT_ROOMS.reduce((s, r) => s + r.total_beds, 0);
   return NextResponse.json(
     {
       ok: true,
       admission_open: DEFAULT_SETTINGS.admission_open,
       total_available,
       total_beds,
-      rooms: DEMO_ROOMS.map((r) => ({
+      rooms: DEFAULT_ROOMS.map((r) => ({
         id: r.id,
         name: r.name,
         beds_per_room: r.beds_per_room,

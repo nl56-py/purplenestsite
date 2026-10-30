@@ -59,7 +59,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   updated_at: new Date(0).toISOString(),
 };
 
-export const DEMO_BLOCKS: Block[] = [
+export const DEFAULT_BLOCKS: Block[] = [
   {
     id: "block-a",
     name: "Block A",
@@ -92,7 +92,7 @@ export const DEMO_BLOCKS: Block[] = [
   },
 ];
 
-export const DEMO_ROOMS: Room[] = [
+export const DEFAULT_ROOMS: Room[] = [
   {
     id: "1",
     name: "Single Seater",
@@ -163,7 +163,7 @@ export const DEMO_ROOMS: Room[] = [
   },
 ];
 
-export const DEMO_FACILITIES: Facility[] = [
+export const DEFAULT_FACILITIES: Facility[] = [
   {
     id: "1",
     slug: "high-speed-wifi",
@@ -318,7 +318,7 @@ export const DEMO_FACILITIES: Facility[] = [
   },
 ];
 
-export const DEMO_GALLERY: GalleryImage[] = [
+export const DEFAULT_GALLERY: GalleryImage[] = [
   { id: "g1", image_url: "/images/hero-exterior.jpg", caption: "Hostel building at Sinpa Marg, Gwarko, Lalitpur", category: "Building", sort_order: 1, storage_path: null },
   { id: "g2", image_url: "/images/hero-room.jpg", caption: "Double seater student room", category: "Rooms", sort_order: 2, storage_path: null },
   { id: "g3", image_url: "/images/hero-rooftop.jpg", caption: "Rooftop evening tea & student hangout", category: "Life", sort_order: 3, storage_path: null },
@@ -333,7 +333,7 @@ export const DEMO_GALLERY: GalleryImage[] = [
   { id: "g12", image_url: "/images/hero-rooftop.jpg", caption: "Kathmandu Valley view", category: "Life", sort_order: 12, storage_path: null },
 ];
 
-export const DEMO_MENU: MealDay[] = [
+export const DEFAULT_MENU: MealDay[] = [
   { day: 0, breakfast: "Tea, biscuits", lunch: "Dal bhat, seasonal veg, tomato pickle", snacks: "Veg chowmein, tea", dinner: "Dal bhat, Chicken curry (or Paneer)" },
   { day: 1, breakfast: "Tea, bread & boiled egg", lunch: "Dal bhat, aloo tama bodi, saag", snacks: "Chiura, aloo chana tarkari", dinner: "Dal bhat, mixed veg curry" },
   { day: 2, breakfast: "Tea, biscuits", lunch: "Dal bhat, rayo ko saag, tomato pickle", snacks: "Crispy Samosa, tea", dinner: "Dal bhat, Egg curry" },
@@ -343,7 +343,7 @@ export const DEMO_MENU: MealDay[] = [
   { day: 6, breakfast: "Tea, hot Sel Roti", lunch: "Special Khana Set with Dahi (curd)", snacks: "Steaming Chicken & Veg Momo", dinner: "Veg fried rice, egg soup" },
 ];
 
-export const DEMO_TESTIMONIALS: Testimonial[] = [
+export const DEFAULT_TESTIMONIALS: Testimonial[] = [
   {
     id: "t1",
     name: "Aayush Shrestha",
@@ -376,7 +376,7 @@ export const DEMO_TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export const DEMO_RULES: Rule[] = [
+export const DEFAULT_RULES: Rule[] = [
   { id: "r1", category: "General", content: "The main hostel gate closes sharply at 8:30 PM. Late entry requires prior written permission from the hostel warden.", sort_order: 1 },
   { id: "r2", category: "General", content: "Visitors and guardians are allowed strictly in the reception lounge between 9:00 AM and 6:00 PM.", sort_order: 2 },
   { id: "r3", category: "General", content: "Smoking, alcohol, drugs, or gambling are strictly prohibited on the premises with immediate expulsion.", sort_order: 3 },
@@ -388,7 +388,7 @@ export const DEMO_RULES: Rule[] = [
   { id: "r9", category: "Study", content: "Silence hours are strictly observed from 9:00 PM to 6:00 AM. Please respect fellow roommates' study time.", sort_order: 9 },
 ];
 
-export const DEMO_FAQS: Faq[] = [
+export const DEFAULT_FAQS: Faq[] = [
   { id: "f1", question: "What is included in the monthly fee?", answer: "The monthly fee includes your bed, 4 meals a day (morning tea, lunch, afternoon snacks, dinner), high-speed fiber Wi-Fi, 24/7 hot water, electricity, and room cleaning. Laundry detergent and personal toiletries are not included.", is_published: true, sort_order: 1 },
   { id: "f2", question: "Is there an admission fee or security deposit?", answer: "Yes. A one-time admission fee of Rs. 5,000 is charged upon joining, plus a refundable security deposit equal to one month's fee.", is_published: true, sort_order: 2 },
   { id: "f3", question: "Can parents and guardians visit?", answer: "Of course! Parents and guardians are always welcome in our visitor lounge any day between 9:00 AM and 6:00 PM.", is_published: true, sort_order: 3 },
@@ -396,7 +396,7 @@ export const DEMO_FAQS: Faq[] = [
   { id: "f5", question: "What documents are needed for admission?", answer: "A copy of your citizenship card or college student ID, two passport-size photographs, and your parent/guardian's active phone number.", is_published: true, sort_order: 5 },
 ];
 
-export const DEMO_NOTICES: Notice[] = [
+export const DEFAULT_NOTICES: Notice[] = [
   {
     id: "n1",
     title: "Admissions Open for Academic Session 2026/2083",
@@ -432,28 +432,28 @@ export const DEMO_NOTICES: Notice[] = [
   },
 ];
 
-export const DEMO_DATA: SiteData = {
+export const DEFAULT_DATA: SiteData = {
   settings: DEFAULT_SETTINGS,
-  blocks: DEMO_BLOCKS,
-  rooms: DEMO_ROOMS,
-  gallery: DEMO_GALLERY,
-  facilities: DEMO_FACILITIES,
-  rules: DEMO_RULES,
-  notices: DEMO_NOTICES,
-  menu: DEMO_MENU,
-  testimonials: DEMO_TESTIMONIALS,
-  faqs: DEMO_FAQS,
+  blocks: DEFAULT_BLOCKS,
+  rooms: DEFAULT_ROOMS,
+  gallery: DEFAULT_GALLERY,
+  facilities: DEFAULT_FACILITIES,
+  rules: DEFAULT_RULES,
+  notices: DEFAULT_NOTICES,
+  menu: DEFAULT_MENU,
+  testimonials: DEFAULT_TESTIMONIALS,
+  faqs: DEFAULT_FAQS,
 };
 
 const isBuild = process.env.NEXT_PHASE === "phase-production-build";
 
 /**
  * Everything the public site needs, in one round of parallel queries.
- * If Supabase is not configured yet, provides realistic Nepali hostel demo content.
+ * Fallback default content for The Purple Nest Hostel.
  */
 export const getSiteData = cache(async (): Promise<SiteData & { configured: boolean }> => {
   if (!isSupabaseConfigured) {
-    return { ...DEMO_DATA, configured: false };
+    return { ...DEFAULT_DATA, configured: false };
   }
 
   const sb = createPublicClient();
@@ -479,8 +479,8 @@ export const getSiteData = cache(async (): Promise<SiteData & { configured: bool
   const firstError = [settings, blocks, rooms, gallery, facilities, rules, notices, menu, testimonials, faqs].find((r) => r.error)?.error;
   if (firstError) {
     if (isBuild) {
-      console.warn("[site] Supabase not reachable during build, rendering demo content:", firstError.message);
-      return { ...DEMO_DATA, configured: false };
+      console.warn("[site] Supabase not reachable during build, rendering default content:", firstError.message);
+      return { ...DEFAULT_DATA, configured: false };
     }
     throw new Error(`Could not load site content: ${firstError.message}`);
   }
@@ -488,21 +488,21 @@ export const getSiteData = cache(async (): Promise<SiteData & { configured: bool
   return {
     configured: true,
     settings: { ...DEFAULT_SETTINGS, ...(settings.data ?? {}) },
-    blocks: blocks.data?.length ? blocks.data : DEMO_BLOCKS,
-    rooms: rooms.data?.length ? rooms.data : DEMO_ROOMS,
-    gallery: gallery.data?.length ? gallery.data : DEMO_GALLERY,
-    facilities: facilities.data?.length ? facilities.data : DEMO_FACILITIES,
-    rules: rules.data?.length ? rules.data : DEMO_RULES,
-    notices: notices.data?.length ? notices.data : DEMO_NOTICES,
-    menu: menu.data?.length ? menu.data : DEMO_MENU,
-    testimonials: testimonials.data?.length ? testimonials.data : DEMO_TESTIMONIALS,
-    faqs: faqs.data?.length ? faqs.data : DEMO_FAQS,
+    blocks: blocks.data?.length ? blocks.data : DEFAULT_BLOCKS,
+    rooms: rooms.data?.length ? rooms.data : DEFAULT_ROOMS,
+    gallery: gallery.data?.length ? gallery.data : DEFAULT_GALLERY,
+    facilities: facilities.data?.length ? facilities.data : DEFAULT_FACILITIES,
+    rules: rules.data?.length ? rules.data : DEFAULT_RULES,
+    notices: notices.data?.length ? notices.data : DEFAULT_NOTICES,
+    menu: menu.data?.length ? menu.data : DEFAULT_MENU,
+    testimonials: testimonials.data?.length ? testimonials.data : DEFAULT_TESTIMONIALS,
+    faqs: faqs.data?.length ? faqs.data : DEFAULT_FAQS,
   };
 });
 
 export async function getNotice(id: string): Promise<Notice | null> {
   if (!isSupabaseConfigured || !/^[0-9a-f-]{36}$/i.test(id)) {
-    return DEMO_NOTICES.find((n) => n.id === id) ?? null;
+    return DEFAULT_NOTICES.find((n) => n.id === id) ?? null;
   }
   const { data } = await createPublicClient().from("notices").select("*").eq("id", id).eq("is_published", true).maybeSingle();
   return data;
@@ -511,7 +511,7 @@ export async function getNotice(id: string): Promise<Notice | null> {
 export async function getFacility(slugOrId: string): Promise<Facility | null> {
   const norm = slugOrId.toLowerCase().trim();
   if (!isSupabaseConfigured) {
-    return DEMO_FACILITIES.find((f) => f.slug?.toLowerCase() === norm || f.id === slugOrId) ?? null;
+    return DEFAULT_FACILITIES.find((f) => f.slug?.toLowerCase() === norm || f.id === slugOrId) ?? null;
   }
   const sb = createPublicClient();
   const isUuid = /^[0-9a-f-]{36}$/i.test(slugOrId);
@@ -520,11 +520,17 @@ export async function getFacility(slugOrId: string): Promise<Facility | null> {
     : sb.from("facilities").select("*").eq("slug", slugOrId).eq("is_published", true).maybeSingle();
   const { data } = await query;
   if (data) return data;
-  return DEMO_FACILITIES.find((f) => f.slug?.toLowerCase() === norm || f.id === slugOrId) ?? null;
+  return DEFAULT_FACILITIES.find((f) => f.slug?.toLowerCase() === norm || f.id === slugOrId) ?? null;
 }
 
 export async function getFacilities(): Promise<Facility[]> {
-  if (!isSupabaseConfigured) return DEMO_FACILITIES;
+  if (!isSupabaseConfigured) return DEFAULT_FACILITIES;
   const { data } = await createPublicClient().from("facilities").select("*").eq("is_published", true).order("sort_order").order("created_at");
-  return data?.length ? data : DEMO_FACILITIES;
+  return data?.length ? data : DEFAULT_FACILITIES;
 }
+
+// Backward compatible aliases
+export const DEMO_ROOMS = DEFAULT_ROOMS;
+export const DEMO_DATA = DEFAULT_DATA;
+export const DEMO_BLOCKS = DEFAULT_BLOCKS;
+export const DEMO_FACILITIES = DEFAULT_FACILITIES;
