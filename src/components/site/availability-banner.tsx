@@ -45,9 +45,11 @@ export function AvailabilityBanner({
 
   // Initial delayed pop-in so visitor gets pleasant entry
   useEffect(() => {
+    const isMobile = typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(max-width: 767px)").matches);
+    const delay = isMobile ? 4000 : 1200;
     const t = setTimeout(() => {
       setVisible(true);
-    }, 1200);
+    }, delay);
     return () => clearTimeout(t);
   }, []);
 
