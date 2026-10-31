@@ -17,8 +17,8 @@ export function About({ settings }: { settings: SiteSettings }) {
   if (!settings.about_text) return null;
   return (
     <section id="about" className="grid bg-sand lg:grid-cols-2">
-      {/* Visual Showcase: 3D Official Logo & Building Sites Collage */}
-      <div className="relative flex flex-col justify-center bg-gradient-to-br from-cream/90 via-sand to-sand-dark/20 p-5 sm:p-8 lg:p-10 xl:p-12">
+      {/* Visual Showcase: 3D Official Logo & Building Sites Collage (desktop only) */}
+      <div className="hidden lg:flex relative flex-col justify-center bg-gradient-to-br from-cream/90 via-sand to-sand-dark/20 p-5 sm:p-8 lg:p-10 xl:p-12">
         <div className="mx-auto w-full max-w-[560px] space-y-4 sm:space-y-5">
           {/* Main Card: The 3D Logo & Hoarding Board */}
           <div className="group relative overflow-hidden rounded-2xl border border-line/80 bg-white shadow-md transition-all duration-300 hover:shadow-xl">

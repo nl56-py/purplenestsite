@@ -27,7 +27,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
   return (
     <section id="top" aria-roledescription="carousel" aria-label="Highlights">
       <div
-        className="relative h-[calc(100svh-104px)] min-h-[560px] max-h-[860px] overflow-hidden bg-[#ececec]"
+        className="relative h-[calc(100svh-104px)] min-h-[500px] sm:min-h-[560px] max-h-[860px] overflow-hidden bg-[#ececec]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -53,73 +53,76 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
           </div>
         ))}
 
-        <div className="relative mx-auto flex h-full max-w-[1200px] items-start sm:items-center px-5 pt-6 pb-8 sm:py-8">
+        <div className="relative mx-auto flex h-full max-w-[1200px] items-start sm:items-center px-4 sm:px-5 pt-3 sm:pt-6 pb-10 sm:pb-8">
           {slides.map(
             (s, i) =>
               i === index && (
                 <div
                   key={i}
-                  className="max-w-2xl py-4 animate-fade-up"
+                  className="max-w-2xl py-2 sm:py-4 animate-fade-up"
                 >
                   {/* Location & 3 Blocks Badge */}
-                  <div className="mb-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-brand/30 bg-white/95 px-4 py-1.5 text-xs font-bold text-brand shadow-sm">
+                  <div className="mb-2 sm:mb-4 inline-flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-full border border-brand/30 bg-white/95 px-3 py-1 sm:px-4 sm:py-1.5 text-[10.5px] sm:text-xs font-bold text-brand shadow-sm">
                     <span className="flex items-center gap-1.5 text-brand">
-                      <MapPin className="size-3.5 shrink-0 text-brand" />
+                      <MapPin className="size-3 sm:size-3.5 shrink-0 text-brand" />
                       <span>Sinpa Marg, Gwarko, Lalitpur</span>
                     </span>
                     <span className="text-brand/40">•</span>
                     <span className="flex items-center gap-1.5 text-brand">
-                      <Building2 className="size-3.5 shrink-0 text-brand" />
+                      <Building2 className="size-3 sm:size-3.5 shrink-0 text-brand" />
                       <span>3 Dedicated Blocks (A, B, C)</span>
                     </span>
                   </div>
 
-                  <h1 className="display text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.98] text-brand drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)] [text-shadow:0_2px_4px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.9)]">
+                  <h1 className="display text-[1.85rem] xs:text-[2.2rem] sm:text-[3rem] md:text-[clamp(2.8rem,7vw,5.5rem)] leading-[1.02] sm:leading-[0.98] text-brand drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)] [text-shadow:0_2px_4px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.9)]">
                     {s.title}
                   </h1>
 
                   {cheapest > 0 && (
-                    <div className="mt-4">
-                      <div className="inline-flex items-baseline gap-x-2.5 rounded-full border border-brand/25 bg-white/95 px-4 py-1.5 shadow-sm backdrop-blur-xs">
-                        <span className="label-caps text-[12px] !tracking-[0.22em] text-brand/80 font-bold">from</span>
-                        <span className="oswald text-[2.2rem] sm:text-[2.6rem] font-bold normal-case leading-none !tracking-normal text-brand">
+                    <div className="mt-2 sm:mt-4">
+                      <div className="inline-flex items-baseline gap-x-2 sm:gap-x-2.5 rounded-full border border-brand/25 bg-white/95 px-3 py-1 sm:px-4 sm:py-1.5 shadow-sm backdrop-blur-xs">
+                        <span className="label-caps text-[10px] sm:text-[12px] !tracking-[0.18em] sm:!tracking-[0.22em] text-brand/80 font-bold">from</span>
+                        <span className="oswald text-[1.5rem] sm:text-[2.2rem] md:text-[2.6rem] font-bold normal-case leading-none !tracking-normal text-brand">
                           {formatRs(cheapest)}
                         </span>
-                        <span className="label-caps text-[12px] !tracking-[0.22em] text-brand/80 font-bold">a month</span>
+                        <span className="label-caps text-[10px] sm:text-[12px] !tracking-[0.18em] sm:!tracking-[0.22em] text-brand/80 font-bold">a month</span>
                       </div>
                     </div>
                   )}
 
                   {s.subtitle && (
-                    <div className="mt-4 max-w-xl rounded-2xl border border-brand/20 bg-white/95 p-4 shadow-md backdrop-blur-xs">
-                      <p className="text-[15px] sm:text-[16.5px] font-semibold leading-relaxed text-brand">
+                    <div className="mt-2 sm:mt-4 max-w-xl rounded-xl sm:rounded-2xl border border-brand/20 bg-white/95 px-3 py-2 sm:p-4 shadow-md backdrop-blur-xs">
+                      <p className="text-[12.5px] sm:text-[15px] md:text-[16.5px] font-semibold leading-snug sm:leading-relaxed text-brand">
                         {s.subtitle}
                       </p>
                     </div>
                   )}
 
                   {/* Quick highlights pill strip */}
-                  <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
-                      <Building2 className="size-3.5 text-brand" />
+                  <div className="mt-2.5 sm:mt-5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-xs">
+                    <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md sm:rounded-lg border border-brand/25 bg-white/95 px-2.5 py-1 sm:px-3 sm:py-1.5 font-bold text-brand shadow-xs">
+                      <Building2 className="size-3 sm:size-3.5 text-brand" />
                       <span>Block A • Block B • Block C</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
-                      <MapPin className="size-3.5 text-brand" />
+                    <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md sm:rounded-lg border border-brand/25 bg-white/95 px-2.5 py-1 sm:px-3 sm:py-1.5 font-bold text-brand shadow-xs">
+                      <MapPin className="size-3 sm:size-3.5 text-brand" />
                       <span>Near Gwarko Chowk</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand/25 bg-white/95 px-3 py-1.5 font-bold text-brand shadow-xs">
+                    <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md sm:rounded-lg border border-brand/25 bg-white/95 px-2.5 py-1 sm:px-3 sm:py-1.5 font-bold text-brand shadow-xs">
                       <span>🍲 4 Fresh Meals Daily</span>
                     </span>
                   </div>
 
-                  <div className="mt-7 flex flex-wrap items-center gap-3.5">
-                    <a href="#rooms" className="tbtn tbtn-sun shadow-lg font-bold text-brand">
+                  <div className="mt-3.5 sm:mt-7 flex flex-wrap items-center gap-2 sm:gap-3.5">
+                    <a
+                      href="#rooms"
+                      className="tbtn tbtn-sun shadow-md font-bold text-brand !px-3.5 !py-2.5 sm:!px-10 sm:!py-4 text-[11px] sm:text-[12px] !tracking-[0.14em] sm:!tracking-[0.25em]"
+                    >
                       View 3 Blocks & Rooms
                     </a>
                     <a
                       href="#contact"
-                      className="tbtn border-2 border-brand bg-white/95 text-brand hover:bg-brand hover:text-white font-bold shadow-md transition"
+                      className="tbtn border-2 border-brand bg-white/95 text-brand hover:bg-brand hover:text-white font-bold shadow-md transition !px-3.5 !py-2.5 sm:!px-10 sm:!py-4 text-[11px] sm:text-[12px] !tracking-[0.14em] sm:!tracking-[0.25em]"
                     >
                       Visit Us in Gwarko
                     </a>
@@ -147,7 +150,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
             >
               <ChevronRight className="size-6" />
             </button>
-            <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-3">
+            <div className="absolute bottom-2.5 sm:bottom-6 left-1/2 flex -translate-x-1/2 gap-2 sm:gap-3">
               {slides.map((_, i) => (
                 <button
                   key={i}
@@ -155,7 +158,7 @@ export function Hero({ settings, rooms }: { settings: SiteSettings; rooms: Room[
                   aria-label={`Go to slide ${i + 1}`}
                   aria-current={i === index}
                   onClick={() => setIndex(i)}
-                  className={`size-3.5 rounded-full border-2 transition ${
+                  className={`size-2.5 sm:size-3.5 rounded-full border-2 transition ${
                     i === index ? "border-brand bg-brand scale-110" : "border-brand/50 bg-white/80 hover:bg-brand/30"
                   }`}
                 />
@@ -203,11 +206,11 @@ function BookingBand({
   return (
     <>
       <div className="bg-leaf">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-8 px-5 py-12 lg:grid-cols-[280px_1fr] lg:py-14">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-6 sm:gap-8 px-4 sm:px-5 py-8 sm:py-12 lg:grid-cols-[280px_1fr] lg:py-14">
           <div>
-            <h2 className="display text-[clamp(2.2rem,3.8vw,2.8rem)] text-white">Book your bed!</h2>
+            <h2 className="display text-[clamp(1.9rem,3.8vw,2.8rem)] text-white">Book your bed!</h2>
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              {admissionOpen && <p className="label-caps text-white/85">admissions open</p>}
+              {admissionOpen && <p className="label-caps text-white/85 text-[10.5px] sm:text-[12px]">admissions open</p>}
               <span className="text-white/40">•</span>
               <span className="oswald text-[11px] uppercase tracking-wider text-sun">Gwarko, Lalitpur (3 Blocks)</span>
             </div>

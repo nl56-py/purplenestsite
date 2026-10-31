@@ -48,27 +48,27 @@ export function NoticePopup({ notices }: { notices: Notice[] }) {
   if (!notice) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={close} role="dialog" aria-modal="true" aria-labelledby="popup-title">
-      <div className="animate-pop-in relative max-h-[90vh] w-full max-w-lg overflow-y-auto bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <button type="button" onClick={close} aria-label="Close notice" className="absolute right-0 top-0 z-10 grid size-11 place-items-center bg-sun text-ink hover:bg-white">
-          <X className="size-5" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-sm" onClick={close} role="dialog" aria-modal="true" aria-labelledby="popup-title">
+      <div className="animate-pop-in relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <button type="button" onClick={close} aria-label="Close notice" className="absolute right-0 top-0 z-10 grid size-9 sm:size-11 place-items-center rounded-bl-xl bg-sun text-ink hover:bg-white">
+          <X className="size-4 sm:size-5" />
         </button>
         {notice.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={notice.image_url} alt="" className="max-h-80 w-full object-cover" />
+          <img src={notice.image_url} alt="" className="max-h-44 sm:max-h-80 w-full object-cover" />
         ) : (
-          <div className="flex items-center gap-3 bg-brand px-8 py-6 text-white">
-            <BellRing className="size-6 text-sun" />
-            <span className="label-caps">Notice</span>
+          <div className="flex items-center gap-3 bg-brand px-5 py-4 sm:px-8 sm:py-6 text-white">
+            <BellRing className="size-5 sm:size-6 text-sun" />
+            <span className="label-caps text-xs">Notice</span>
           </div>
         )}
-        <div className="p-8">
-          <p className="oswald text-[11px] !tracking-[0.2em] text-muted">{formatDate(notice.published_at)}</p>
-          <h2 id="popup-title" className="display mt-3 text-[2.2rem] text-brand">{notice.title}</h2>
-          {notice.body && <p className="mt-4 whitespace-pre-line">{notice.body}</p>}
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button type="button" onClick={close} className="tbtn tbtn-dark px-8 py-4">Got it</button>
-            <Link href="/notices" onClick={close} className="tbtn tbtn-sun px-8 py-4">All notices</Link>
+        <div className="p-5 sm:p-8">
+          <p className="oswald text-[10px] sm:text-[11px] !tracking-[0.2em] text-muted">{formatDate(notice.published_at)}</p>
+          <h2 id="popup-title" className="display mt-2 sm:mt-3 text-[1.45rem] sm:text-[2.2rem] leading-tight text-brand">{notice.title}</h2>
+          {notice.body && <p className="mt-2.5 sm:mt-4 text-[13px] sm:text-[15px] leading-relaxed whitespace-pre-line text-ink/80">{notice.body}</p>}
+          <div className="mt-4 sm:mt-6 flex flex-wrap gap-2.5 sm:gap-3">
+            <button type="button" onClick={close} className="tbtn tbtn-dark !px-5 !py-3 sm:!px-8 sm:!py-4 text-[11px] sm:text-[12px] rounded-lg sm:rounded-none">Got it</button>
+            <Link href="/notices" onClick={close} className="tbtn tbtn-sun !px-5 !py-3 sm:!px-8 sm:!py-4 text-[11px] sm:text-[12px] rounded-lg sm:rounded-none">All notices</Link>
           </div>
         </div>
       </div>
